@@ -12,6 +12,18 @@ class FeedController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        setUI()
     }
+    
+    func setUI() {
+        view.backgroundColor = .white
+        
+        navigationItem.titleView = iconImage
+    }
+    
+    private lazy var iconImage: UIImageView = {
+        let image = UIImageView(image: UIImage(named: "twitter_logo_blue"))
+        image.contentMode = .scaleAspectFit
+        return image
+    }()
 }
