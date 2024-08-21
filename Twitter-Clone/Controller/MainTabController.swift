@@ -18,7 +18,18 @@ class MainTabController: UITabBarController {
     func configControllers() {
         tabBar.backgroundColor = .systemGray6
         
-        viewControllers = [feedController, exploreController, notifController, convoController]
+        let nav1 = templateNavigationController(rootViewController: feedController)
+        let nav2 = templateNavigationController(rootViewController: exploreController)
+        let nav3 = templateNavigationController(rootViewController: notifController)
+        let nav4 = templateNavigationController(rootViewController: convoController)
+         
+        viewControllers = [nav1, nav2, nav3, nav4]
+    }
+    
+    func templateNavigationController(rootViewController: UIViewController) -> UINavigationController {
+        let nav = UINavigationController(rootViewController: rootViewController)
+        nav.navigationBar.barTintColor = .white
+        return nav
     }
 
     lazy var feedController: FeedController = {
