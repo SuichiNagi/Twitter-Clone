@@ -20,7 +20,7 @@ class RegistrationController: UIViewController {
     //MARK: Selectors
     
     @objc private func handleAddPhoto() {
-        print("Add Photo")
+        present(imagePicker, animated: true)
     }
     
     @objc private func handleSignUp() {
@@ -65,11 +65,19 @@ class RegistrationController: UIViewController {
     
     //MARK: Properties
     
+    private lazy var imagePicker: UIImagePickerController = {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        return picker
+    }()
+    
     private lazy var addPhotoButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(IconImage.plusLogo, for: .normal)
         button.tintColor = .white
         button.addTarget(self, action: #selector(handleAddPhoto), for: .touchUpInside)
+       
         return button
     }()
     
@@ -147,4 +155,25 @@ class RegistrationController: UIViewController {
         button.addTarget(self, action: #selector(handleShowLogin), for: .touchUpInside)
         return button
     }()
+}
+
+//MARK: Delegate
+
+extension RegistrationController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        guard let profileImage = info[.editedImage] as? UIImage else { return }
+        
+        addPhotoButton.layer.cornerRadius = 128 / 2
+        addPhotoButton.layer.masksToBounds = true
+        addPhotoButton.layer.borderColor = UIColor.white.cgColor
+        addPhotoButton.layer.borderWidth = 3
+        addPhotoButton.imageView?.contentMode = .scaleAspectFill
+        addPhotoButton.imageView?.clipsToBounds = true
+
+        addPhotoButton.setImage(profileImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        
+        dismiss(animated: true, completion: nil)
+    }
 }
