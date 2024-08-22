@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class RegistrationController: UIViewController {
     
@@ -24,7 +25,17 @@ class RegistrationController: UIViewController {
     }
     
     @objc private func handleSignUp() {
-        print("Sign me up")
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        
+        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+            if let error {
+                print(error.localizedDescription)
+                return
+            }
+            
+            print("Success")
+        }
     }
     
     @objc private func handleShowLogin() {

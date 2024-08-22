@@ -7,7 +7,13 @@ target 'Twitter-Clone' do
 
   # Pods for Twitter-Clone
   pod 'SnapKit', '~> 5.7.0'
+
   pod 'LookinServer', :subspecs => ['Swift'], :configurations => ['Debug']
+
+  pod 'FirebaseAuth'
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
+  pod 'Firebase/Storage'
 
   target 'Twitter-CloneTests' do
     inherit! :search_paths
