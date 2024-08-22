@@ -10,6 +10,8 @@ import Firebase
 
 class RegistrationController: UIViewController {
     
+    private var profileImage: UIImage?
+    
     //MARK: Lifecycle
     
     override func viewDidLoad() {
@@ -25,8 +27,14 @@ class RegistrationController: UIViewController {
     }
     
     @objc private func handleSignUp() {
+        guard let profileImage = profileImage else {
+            print("Please select a profile image")
+            return
+        }
         guard let email = emailTextField.text else { return }
         guard let password = passwordTextField.text else { return }
+        guard let fullName = fullNameTextField.text else { return }
+        guard let username = usernameTextField.text else { return }
         
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error {
@@ -34,7 +42,15 @@ class RegistrationController: UIViewController {
                 return
             }
             
-            print("Success")
+            guard let uid = result?.user.uid else { return }
+            
+            let values = ["email":email, "username":username, "fullname":fullName]
+            
+            let ref = Database.database().reference().child("users").child(uid)
+            
+            ref.updateChildValues(values) { error, ref in
+                print("Success")
+            }
         }
     }
     
@@ -175,6 +191,8 @@ extension RegistrationController: UIImagePickerControllerDelegate, UINavigationC
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         guard let profileImage = info[.editedImage] as? UIImage else { return }
+        
+        self.profileImage = profileImage
         
         addPhotoButton.layer.cornerRadius = 128 / 2
         addPhotoButton.layer.masksToBounds = true
