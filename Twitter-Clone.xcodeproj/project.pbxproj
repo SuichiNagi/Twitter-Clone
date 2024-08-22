@@ -15,6 +15,7 @@
 		5F5873222C7706F5001C0F3D /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5873212C7706F5001C0F3D /* RegistrationController.swift */; };
 		5F5873242C7723FB001C0F3D /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5873232C7723FB001C0F3D /* Utilities.swift */; };
 		5F58732C2C778006001C0F3D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F58732B2C778006001C0F3D /* GoogleService-Info.plist */; };
+		5F58732E2C778CBF001C0F3D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F58732D2C778CBF001C0F3D /* Constants.swift */; };
 		5F631EB02C760DEB00CD8872 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F631EAF2C760DEB00CD8872 /* AppDelegate.swift */; };
 		5F631EB22C760DEB00CD8872 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F631EB12C760DEB00CD8872 /* SceneDelegate.swift */; };
 		5F631EB92C760DEC00CD8872 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F631EB82C760DEC00CD8872 /* Assets.xcassets */; };
@@ -62,6 +63,7 @@
 		5F5873212C7706F5001C0F3D /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		5F5873232C7723FB001C0F3D /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		5F58732B2C778006001C0F3D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5F58732D2C778CBF001C0F3D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5F631EAC2C760DEB00CD8872 /* Twitter-Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Twitter-Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F631EAF2C760DEB00CD8872 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5F631EB12C760DEB00CD8872 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 			children = (
 				5F631EF42C762B3900CD8872 /* UIColor+Extension.swift */,
 				5F5873232C7723FB001C0F3D /* Utilities.swift */,
+				5F58732D2C778CBF001C0F3D /* Constants.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -522,6 +525,7 @@
 				5F631EB22C760DEB00CD8872 /* SceneDelegate.swift in Sources */,
 				5F631EE52C7610AC00CD8872 /* MainTabController.swift in Sources */,
 				5F631EED2C76120700CD8872 /* FeedController.swift in Sources */,
+				5F58732E2C778CBF001C0F3D /* Constants.swift in Sources */,
 				5F5873222C7706F5001C0F3D /* RegistrationController.swift in Sources */,
 				5F631EF52C762B3900CD8872 /* UIColor+Extension.swift in Sources */,
 			);

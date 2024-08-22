@@ -27,7 +27,7 @@ class RegistrationController: UIViewController {
     }
     
     @objc private func handleSignUp() {
-        guard let profileImage = profileImage else {
+        guard let profileImage else {
             print("Please select a profile image")
             return
         }
@@ -36,20 +36,33 @@ class RegistrationController: UIViewController {
         guard let fullName = fullNameTextField.text else { return }
         guard let username = usernameTextField.text else { return }
         
-        Auth.auth().createUser(withEmail: email, password: password) { result, error in
-            if let error {
-                print(error.localizedDescription)
-                return
-            }
-            
-            guard let uid = result?.user.uid else { return }
-            
-            let values = ["email":email, "username":username, "fullname":fullName]
-            
-            let ref = Database.database().reference().child("users").child(uid)
-            
-            ref.updateChildValues(values) { error, ref in
-                print("Success")
+        guard let imageData = profileImage.jpegData(compressionQuality: 0.3) else { return }
+        let fileName = NSUUID().uuidString
+        let storageRef = STORAGE_PROFILE_IMAGES.child(fileName)
+        
+        storageRef.putData(imageData, metadata: nil) { meta, error in
+            storageRef.downloadURL { url, error in
+                guard let profileImageUrl = url?.absoluteString else { return }
+                
+                Auth.auth().createUser(withEmail: email, password: password) { result, error in
+                    if let error {
+                        print(error.localizedDescription)
+                        return
+                    }
+                    
+                    guard let uid = result?.user.uid else { return }
+                    
+                    let values = ["email": email,
+                                  "username": username,
+                                  "fullname": fullName,
+                                  "profileImageUrl": profileImageUrl]
+                    
+                    REF_USERS.child(uid).updateChildValues(values) { error, ref in
+                        print("Success")
+                    }
+                }
+                
+                
             }
         }
     }
@@ -104,7 +117,7 @@ class RegistrationController: UIViewController {
         button.setImage(IconImage.plusLogo, for: .normal)
         button.tintColor = .white
         button.addTarget(self, action: #selector(handleAddPhoto), for: .touchUpInside)
-       
+        
         return button
     }()
     
@@ -200,7 +213,7 @@ extension RegistrationController: UIImagePickerControllerDelegate, UINavigationC
         addPhotoButton.layer.borderWidth = 3
         addPhotoButton.imageView?.contentMode = .scaleAspectFill
         addPhotoButton.imageView?.clipsToBounds = true
-
+        
         addPhotoButton.setImage(profileImage.withRenderingMode(.alwaysOriginal), for: .normal)
         
         dismiss(animated: true, completion: nil)
