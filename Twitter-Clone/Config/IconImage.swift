@@ -14,4 +14,5 @@ struct IconImage {
     static let convoIcon    = UIImage(named: "ic_mail_outline_white_2x-1")
     
     static let tweetIcon    = UIImage(named: "new_tweet")
+    static let tweetLogo    = UIImage(named: "TwitterLogo")
 }
