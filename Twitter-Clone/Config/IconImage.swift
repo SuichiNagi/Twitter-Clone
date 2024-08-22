@@ -1,0 +1,17 @@
+//
+//  IconImage.swift
+//  Twitter-Clone
+//
+//  Created by Aldrei Glenn Nuqui on 8/22/24.
+//
+
+import UIKit
+
+struct IconImage {
+    static let feedIcon     = UIImage(named: "home_unselected")
+    static let exploreIcon  = UIImage(named: "search_unselected")
+    static let notifIcon    = UIImage(named: "like_unselected")
+    static let convoIcon    = UIImage(named: "ic_mail_outline_white_2x-1")
+    
+    static let tweetIcon    = UIImage(named: "new_tweet")
+}

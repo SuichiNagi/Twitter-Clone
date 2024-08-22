@@ -19,6 +19,13 @@ class MainTabController: UITabBarController {
         setUI()
     }
     
+    
+    // MARK: - Selectors
+    
+    @objc func actionButtonTapped() {
+        print("Hello Meow")
+    }
+    
     // MARK: - Helpers
     
     private func configControllers() {
@@ -50,35 +57,36 @@ class MainTabController: UITabBarController {
 
     private lazy var feedController: FeedController = {
         let feed = FeedController()
-        feed.tabBarItem.image = UIImage(named: "home_unselected")
+        feed.tabBarItem.image = IconImage.feedIcon
         return feed
     }()
     
     private lazy var exploreController: ExploreController = {
         let explore = ExploreController()
-        explore.tabBarItem.image = UIImage(named: "search_unselected")
+        explore.tabBarItem.image = IconImage.exploreIcon
         return explore
     }()
     
     private lazy var notifController: NotificationsController = {
         let notif = NotificationsController()
-        notif.tabBarItem.image = UIImage(named: "like_unselected")
+        notif.tabBarItem.image = IconImage.notifIcon
         return notif
     }()
     
     private lazy var convoController: ConversationsController = {
         let convo = ConversationsController()
-        convo.tabBarItem.image = UIImage(named: "ic_mail_outline_white_2x-1")
+        convo.tabBarItem.image = IconImage.convoIcon
         return convo
     }()
     
     private lazy var actionButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .white
-        button.backgroundColor = .blue
-        button.setImage(UIImage(named: "new_tweet"), for: .normal)
+        button.backgroundColor = ThemeColor.twitterBlue
+        button.setImage(IconImage.tweetIcon, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 56 / 2
+        button.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
         return button
     }()
 }
