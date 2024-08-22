@@ -15,6 +15,14 @@ class LoginController: UIViewController {
         setUI()
     }
     
+    @objc private func handleLogin() {
+        print("Login")
+    }
+    
+    @objc private func handleShowSignUp() {
+        print("Sign Up")
+    }
+    
     private func setUI() {
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.isHidden = true
@@ -30,8 +38,20 @@ class LoginController: UIViewController {
         view.addSubview(stackView)
         stackView.snp.makeConstraints { make in
             make.top.equalTo(logoImageView.snp.bottom).offset(10)
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
+            make.left.equalToSuperview().offset(32)
+            make.right.equalToSuperview().offset(-32)
+        }
+        
+        loginButton.snp.makeConstraints { make in
+            make.height.equalTo(50)
+        }
+        
+        view.addSubview(dontHaveAccountButton)
+        dontHaveAccountButton.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.centerX.equalToSuperview()
+            make.left.equalToSuperview().offset(40)
+            make.right.equalToSuperview().offset(-40)
         }
     }
     
@@ -44,9 +64,10 @@ class LoginController: UIViewController {
     }()
     
     private lazy var stackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [emailContainerView, passwordContainerView])
+        let stack = UIStackView(arrangedSubviews: [emailContainerView, passwordContainerView, loginButton])
         stack.axis = .vertical
-        stack.spacing = 8
+        stack.spacing = 20
+        stack.distribution = .fillEqually
         return stack
     }()
     
@@ -71,5 +92,22 @@ class LoginController: UIViewController {
         let textField = Utilities().textField(withPlaceholder: "Password")
         textField.isSecureTextEntry = true
         return textField
+    }()
+    
+    private lazy var loginButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Login", for: .normal)
+        button.setTitleColor(ThemeColor.twitterBlue, for: .normal)
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 5
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var dontHaveAccountButton: UIButton = {
+        let button = Utilities().attributedButton("Don't have an account?", " Sign Up")
+        button.addTarget(self, action: #selector(handleShowSignUp), for: .touchUpInside)
+        return button
     }()
 }
