@@ -13,6 +13,7 @@
 		5F58731D2C770057001C0F3D /* IconImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F58731C2C770057001C0F3D /* IconImage.swift */; };
 		5F5873202C7706B3001C0F3D /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F58731F2C7706B3001C0F3D /* LoginController.swift */; };
 		5F5873222C7706F5001C0F3D /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5873212C7706F5001C0F3D /* RegistrationController.swift */; };
+		5F5873242C7723FB001C0F3D /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5873232C7723FB001C0F3D /* Utilities.swift */; };
 		5F631EB02C760DEB00CD8872 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F631EAF2C760DEB00CD8872 /* AppDelegate.swift */; };
 		5F631EB22C760DEB00CD8872 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F631EB12C760DEB00CD8872 /* SceneDelegate.swift */; };
 		5F631EB92C760DEC00CD8872 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F631EB82C760DEC00CD8872 /* Assets.xcassets */; };
@@ -58,6 +59,7 @@
 		5F58731C2C770057001C0F3D /* IconImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconImage.swift; sourceTree = "<group>"; };
 		5F58731F2C7706B3001C0F3D /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		5F5873212C7706F5001C0F3D /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
+		5F5873232C7723FB001C0F3D /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		5F631EAC2C760DEB00CD8872 /* Twitter-Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Twitter-Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F631EAF2C760DEB00CD8872 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5F631EB12C760DEB00CD8872 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				5F631EF42C762B3900CD8872 /* UIColor+Extension.swift */,
+				5F5873232C7723FB001C0F3D /* Utilities.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -508,6 +511,7 @@
 				5F631EF12C76123E00CD8872 /* NotificationsController.swift in Sources */,
 				5F631EF32C76125100CD8872 /* ConversationsController.swift in Sources */,
 				5F58731D2C770057001C0F3D /* IconImage.swift in Sources */,
+				5F5873242C7723FB001C0F3D /* Utilities.swift in Sources */,
 				5F58731A2C76FFAD001C0F3D /* ThemeColor.swift in Sources */,
 				5F631EB02C760DEB00CD8872 /* AppDelegate.swift in Sources */,
 				5F631EEF2C76122F00CD8872 /* ExploreController.swift in Sources */,
