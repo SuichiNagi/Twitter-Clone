@@ -17,4 +17,6 @@ struct IconImage {
     static let tweetLogo    = UIImage(named: "TwitterLogo")
     
     static let passwordIcon = UIImage(named: "ic_lock_outline_white_2x")
+    
+    static let plusLogo     = UIImage(named: "plus_photo")
 }

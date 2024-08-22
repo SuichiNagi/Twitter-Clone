@@ -28,7 +28,7 @@ class Utilities {
         view.addSubview(textField)
         textField.snp.makeConstraints { make in
             make.left.equalTo(imageView.snp.right).offset(8)
-            make.bottom.equalToSuperview().offset(-8)
+            make.bottom.right.equalToSuperview().offset(-8)
         }
         
         let dividerView = UIView()
@@ -49,6 +49,9 @@ class Utilities {
         textField.textColor = .white
         textField.font = UIFont.systemFont(ofSize: 16)
         textField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        textField.clearButtonMode = .whileEditing
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.adjustsFontSizeToFitWidth = true
         return textField
     }
     

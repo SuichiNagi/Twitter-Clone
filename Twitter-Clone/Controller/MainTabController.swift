@@ -10,7 +10,7 @@ import SnapKit
 
 class MainTabController: UITabBarController {
     
-    // MARK: - Lifecycle
+    //MARK: Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,14 +19,13 @@ class MainTabController: UITabBarController {
         setUI()
     }
     
-    
-    // MARK: - Selectors
+    //MARK: Selectors
     
     @objc func actionButtonTapped() {
         print("Hello Meow")
     }
     
-    // MARK: - Helpers
+    //MARK: Helpers
     
     private func configControllers() {
         tabBar.backgroundColor = .systemGray6
@@ -45,6 +44,8 @@ class MainTabController: UITabBarController {
         return nav
     }
     
+    //MARK: UI
+    
     private func setUI() {
         view.addSubview(actionButton)
         
@@ -54,6 +55,8 @@ class MainTabController: UITabBarController {
             make.right.equalToSuperview().offset(-16)
         }
     }
+    
+    //MARK: Properties
 
     private lazy var feedController: FeedController = {
         let feed = FeedController()

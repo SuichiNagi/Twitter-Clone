@@ -9,19 +9,26 @@ import UIKit
 
 class LoginController: UIViewController {
     
+    //MARK: Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUI()
     }
     
+    //MARK: Selectors
+    
     @objc private func handleLogin() {
         print("Login")
     }
     
     @objc private func handleShowSignUp() {
-        print("Sign Up")
+        let regController = RegistrationController()
+        navigationController?.pushViewController(regController, animated: true)
     }
+    
+    //MARK: UI
     
     private func setUI() {
         navigationController?.navigationBar.barStyle = .black
@@ -31,7 +38,7 @@ class LoginController: UIViewController {
         view.addSubview(logoImageView)
         logoImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(32)
             make.height.width.equalTo(150)
         }
         
@@ -54,6 +61,8 @@ class LoginController: UIViewController {
             make.right.equalToSuperview().offset(-40)
         }
     }
+    
+    //MARK: Properties
     
     private lazy var logoImageView: UIImageView = {
         let logoImage = UIImageView()
