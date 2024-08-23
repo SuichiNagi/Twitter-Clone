@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Firebase
 
 class MainTabController: UITabBarController {
     
@@ -15,8 +16,32 @@ class MainTabController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configControllers()
-        setUI()
+//        logUserOut()
+        view.backgroundColor = ThemeColor.twitterBlue
+        authUserAndConfigUI()
+    }
+    
+    //MARK: API
+    
+    func authUserAndConfigUI() {
+        if Auth.auth().currentUser == nil {
+            DispatchQueue.main.async {
+                let nav = UINavigationController(rootViewController: LoginController())
+                nav.modalPresentationStyle = .fullScreen
+                self.present(nav, animated: true)
+            }
+        } else {
+            configControllers()
+            setUI()
+        }
+    }
+    
+    func logUserOut() {
+        do {
+            try Auth.auth().signOut()
+        } catch let error {
+            print("Failed to signed out user", error.localizedDescription)
+        }
     }
     
     //MARK: Selectors
