@@ -18,7 +18,10 @@ struct UserService {
             guard let dictionary = snapshot.value as? [String : AnyObject] else { return }
             
             guard let username = dictionary["username"] as? String else { return }
-            print(username)
+            
+            let userModel = UserModel(uid: uid, dictionary: dictionary)
+            
+            print(userModel)
         }
     }
 }
