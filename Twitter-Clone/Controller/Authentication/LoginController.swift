@@ -28,7 +28,13 @@ class LoginController: UIViewController {
                 print("Error Login, \(error.localizedDescription)")
                 return
             }
-            print("Successful Login")
+            
+            guard let window = UIApplication.shared.connectedScenes.compactMap({ ($0 as? UIWindowScene)?.keyWindow }).last else { return }
+            guard let tab = window.rootViewController as? MainTabController else { return }
+            
+            tab.authUserAndConfigUI()
+            
+            self.dismiss(animated: true)
         }
     }
     
