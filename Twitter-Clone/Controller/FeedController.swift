@@ -43,7 +43,7 @@ class FeedController: UIViewController {
         iconImage.snp.makeConstraints { make in
             make.width.height.equalTo(44)
         }
-
+        
         navigationItem.titleView = iconImage
     }
     
