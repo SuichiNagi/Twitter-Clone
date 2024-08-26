@@ -39,12 +39,12 @@ class FeedController: UIViewController {
     
     func setUI() {
         view.backgroundColor = .white
-
-        navigationItem.titleView = iconImage
         
         iconImage.snp.makeConstraints { make in
             make.width.height.equalTo(44)
         }
+
+        navigationItem.titleView = iconImage
     }
     
     //MARK: Properties
