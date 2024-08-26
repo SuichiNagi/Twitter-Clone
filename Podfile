@@ -10,6 +10,8 @@ target 'Twitter-Clone' do
 
   pod 'LookinServer', :subspecs => ['Swift'], :configurations => ['Debug']
 
+  pod 'SDWebImage', '~> 5.0'
+
   pod 'FirebaseAuth'
   pod 'Firebase/Core'
   pod 'Firebase/Database'

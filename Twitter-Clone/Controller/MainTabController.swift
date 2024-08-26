@@ -11,6 +11,15 @@ import Firebase
 
 class MainTabController: UITabBarController {
     
+    var user: UserModel? {
+        didSet {
+            guard let nav = viewControllers?[0] as? UINavigationController else { return }
+            guard let feed = nav.viewControllers.first as? FeedController else { return }
+            
+            feed.user = user
+        }
+    }
+    
     //MARK: Lifecycle
 
     override func viewDidLoad() {
@@ -24,7 +33,9 @@ class MainTabController: UITabBarController {
     //MARK: API
     
     func fetchUser() {
-        UserService.shared.fetchUser()
+        UserService.shared.fetchUser { user in
+            self.user = user
+        }
     }
     
     func authUserAndConfigUI() {
