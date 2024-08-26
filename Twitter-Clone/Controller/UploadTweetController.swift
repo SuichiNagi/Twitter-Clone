@@ -52,13 +52,16 @@ class UploadTweetController: UIViewController {
         
         configNavBar()
         
-        profileImageView.sd_setImage(with: self.userModel.profileImageUrl)
-        
-        view.addSubview(profileImageView)
-        profileImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(48)
+        view.addSubview(stackView)
+        stackView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
             make.left.equalToSuperview().offset(16)
+            make.right.equalToSuperview().offset(-16)
+        }
+        
+        profileImageView.snp.makeConstraints { make in
+            make.width.height.equalTo(48)
+            make.top.left.equalToSuperview()
         }
     }
     
@@ -76,12 +79,25 @@ class UploadTweetController: UIViewController {
         return button
     }()
     
-    private let profileImageView: UIImageView = {
+    private lazy var profileImageView: UIImageView = {
         let image = UIImageView()
+        image.sd_setImage(with: userModel.profileImageUrl)
         image.contentMode = .scaleAspectFill
         image.backgroundColor = ThemeColor.twitterBlue
         image.clipsToBounds = true
         image.layer.cornerRadius = 48 / 2
         return image
+    }()
+    
+    private lazy var stackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [profileImageView, captionTextView])
+        stack.axis = .horizontal
+        stack.spacing = 12
+        return stack
+    }()
+    
+    private lazy var captionTextView: CaptionTextView = {
+        let textView = CaptionTextView()
+        return textView
     }()
 }
