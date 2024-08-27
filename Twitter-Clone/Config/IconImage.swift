@@ -19,4 +19,9 @@ struct IconImage {
     static let passwordIcon = UIImage(named: "ic_lock_outline_white_2x")
     
     static let plusLogo     = UIImage(named: "plus_photo")
+    
+    static let commentIcon  = UIImage(named: "comment")
+    static let retweetIcon  = UIImage(named: "retweet")
+    static let likeIcon     = UIImage(named: "like")
+    static let shareIcon    = UIImage(named: "share")
 }

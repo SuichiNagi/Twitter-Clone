@@ -90,13 +90,8 @@ class UploadTweetController: UIViewController {
         return button
     }()
     
-    private lazy var profileImageView: UIImageView = {
-        let image = UIImageView()
-        image.sd_setImage(with: userModel.profileImageUrl)
-        image.contentMode = .scaleAspectFill
-        image.backgroundColor = ThemeColor.twitterBlue
-        image.clipsToBounds = true
-        image.layer.cornerRadius = 48 / 2
+    private lazy var profileImageView: TCImageView = {
+        let image = TCImageView(image: userModel.profileImageUrl!)
         return image
     }()
     
