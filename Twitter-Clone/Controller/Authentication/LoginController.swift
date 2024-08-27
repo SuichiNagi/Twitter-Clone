@@ -23,7 +23,9 @@ class LoginController: UIViewController {
         guard let email = emailTextField.text else { return }
         guard let password = passwordTextField.text else { return }
         
-        AuthService.shared.logUserIn(withEmail: email, password: password) { result, error in
+        AuthService.shared.logUserIn(withEmail: email, password: password) { [weak self] result, error in
+            guard let self else { return }
+            
             if let error {
                 print("Error Login, \(error.localizedDescription)")
                 return

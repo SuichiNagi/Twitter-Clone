@@ -11,6 +11,7 @@
 		357EA792E9AD3B0157DC216A /* Pods_Twitter_CloneTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BC6ADF4C0476A486AFC5E58 /* Pods_Twitter_CloneTests.framework */; };
 		5F00C5FD2C7DBF2C00DD7673 /* TCImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F00C5FC2C7DBF2C00DD7673 /* TCImageView.swift */; };
 		5F00C6012C7E154600DD7673 /* ButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F00C6002C7E154600DD7673 /* ButtonFactory.swift */; };
+		5F00C6042C7E466200DD7673 /* TweetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F00C6032C7E466200DD7673 /* TweetViewModel.swift */; };
 		5F58731A2C76FFAD001C0F3D /* ThemeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5873192C76FFAD001C0F3D /* ThemeColor.swift */; };
 		5F58731D2C770057001C0F3D /* IconImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F58731C2C770057001C0F3D /* IconImage.swift */; };
 		5F5873202C7706B3001C0F3D /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F58731F2C7706B3001C0F3D /* LoginController.swift */; };
@@ -69,6 +70,7 @@
 		4843E5E3C1A2EF84A75BE2D2 /* Pods-Twitter-CloneTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twitter-CloneTests.debug.xcconfig"; path = "Target Support Files/Pods-Twitter-CloneTests/Pods-Twitter-CloneTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5F00C5FC2C7DBF2C00DD7673 /* TCImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCImageView.swift; sourceTree = "<group>"; };
 		5F00C6002C7E154600DD7673 /* ButtonFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFactory.swift; sourceTree = "<group>"; };
+		5F00C6032C7E466200DD7673 /* TweetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetViewModel.swift; sourceTree = "<group>"; };
 		5F5873192C76FFAD001C0F3D /* ThemeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeColor.swift; sourceTree = "<group>"; };
 		5F58731C2C770057001C0F3D /* IconImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconImage.swift; sourceTree = "<group>"; };
 		5F58731F2C7706B3001C0F3D /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 		5F631EE72C7610E200CD8872 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				5F00C6032C7E466200DD7673 /* TweetViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -568,6 +571,7 @@
 				5F631EE52C7610AC00CD8872 /* MainTabController.swift in Sources */,
 				5F631EED2C76120700CD8872 /* FeedController.swift in Sources */,
 				5F00C5FD2C7DBF2C00DD7673 /* TCImageView.swift in Sources */,
+				5F00C6042C7E466200DD7673 /* TweetViewModel.swift in Sources */,
 				5F87C74B2C7DAEBF00896C11 /* TweetCell.swift in Sources */,
 				5F58732E2C778CBF001C0F3D /* Constants.swift in Sources */,
 				5F00C6012C7E154600DD7673 /* ButtonFactory.swift in Sources */,
