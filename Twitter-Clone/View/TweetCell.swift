@@ -39,6 +39,12 @@ class TweetCell: UICollectionViewCell {
         
     }
     
+    func set(tweet: TweetModel?) {
+        guard let tweet else { return }
+       
+        captionLabel.text = tweet.caption
+    }
+    
     //MARK: Helpers
     
     func setUI() {
@@ -75,7 +81,6 @@ class TweetCell: UICollectionViewCell {
             make.centerX.equalToSuperview()
         }
     }
-    
     
     //MARK: Properties
     

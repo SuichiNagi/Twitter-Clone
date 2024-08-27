@@ -147,6 +147,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		5F00C6022C7E1D0F00DD7673 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				5F00C5FC2C7DBF2C00DD7673 /* TCImageView.swift */,
+				5F00C6002C7E154600DD7673 /* ButtonFactory.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
 		5F58731B2C76FFDD001C0F3D /* Config */ = {
 			isa = PBXGroup;
 			children = (
@@ -259,8 +268,7 @@
 			children = (
 				5FD605B42C7D13ED00F98836 /* CaptionTextView.swift */,
 				5F87C74A2C7DAEBF00896C11 /* TweetCell.swift */,
-				5F00C5FC2C7DBF2C00DD7673 /* TCImageView.swift */,
-				5F00C6002C7E154600DD7673 /* ButtonFactory.swift */,
+				5F00C6022C7E1D0F00DD7673 /* CustomView */,
 			);
 			path = View;
 			sourceTree = "<group>";

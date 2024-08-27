@@ -13,9 +13,11 @@ private let reuseIdentifier = "TweetCell"
 class FeedController: UICollectionViewController {
     
     var user: UserModel? {
-        didSet {
-            configLeftBarButton()
-        }
+        didSet { configLeftBarButton() }
+    }
+    
+    private var tweets = [TweetModel]() {
+        didSet { collectionView.reloadData() }
     }
     
     //MARK: Lifecycle
@@ -30,8 +32,10 @@ class FeedController: UICollectionViewController {
     //MARK: API
     
     func fetchTweets() {
-        TweetService.shared.fetchTweets { tweets in
-            print(tweets)
+        TweetService.shared.fetchTweets { [weak self] tweets in
+            guard let self else { return }
+            
+            self.tweets = tweets
         }
     }
     
@@ -76,17 +80,24 @@ class FeedController: UICollectionViewController {
     }()
 }
 
+//MARK: UICollectionViewDelegate/DataSource
+
 extension FeedController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return tweets.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TweetCell
         
+        let tweet = tweets[indexPath.row]
+        cell.set(tweet: tweet)
+        
         return cell
     }
 }
+
+//MARK: UICollectionViewDelegateFlowLayout
 
 extension FeedController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
