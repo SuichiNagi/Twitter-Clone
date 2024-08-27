@@ -61,16 +61,18 @@ class UploadTweetController: UIViewController {
         
         configNavBar()
         
-        view.addSubview(stackView)
-        stackView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
-        }
-        
+        view.addSubview(profileImageView)
         profileImageView.snp.makeConstraints { make in
             make.width.height.equalTo(48)
-            make.top.left.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
+            make.left.equalToSuperview().offset(16)
+        }
+        
+        view.addSubview(captionTextView)
+        captionTextView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
+            make.left.equalTo(profileImageView.snp.right).offset(12)
+            make.right.equalToSuperview().offset(-16)
         }
     }
     

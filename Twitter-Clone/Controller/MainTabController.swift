@@ -104,7 +104,7 @@ class MainTabController: UITabBarController {
     //MARK: Properties
 
     private lazy var feedController: FeedController = {
-        let feed = FeedController()
+        let feed = FeedController(collectionViewLayout: UICollectionViewFlowLayout())
         feed.tabBarItem.image = IconImage.feedIcon
         return feed
     }()
