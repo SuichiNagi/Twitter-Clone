@@ -8,8 +8,6 @@
 import UIKit
 import SDWebImage
 
-private let reuseIdentifier = "TweetCell"
-
 class FeedController: UICollectionViewController {
     
     var user: UserModel? {
@@ -55,7 +53,7 @@ class FeedController: UICollectionViewController {
     func setUI() {
         view.backgroundColor = .white
         
-        collectionView.register(TweetCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.register(TweetCell.self, forCellWithReuseIdentifier: TweetCell.reuseIdentifier)
         
         iconImage.snp.makeConstraints { make in
             make.width.height.equalTo(44)
@@ -88,7 +86,8 @@ extension FeedController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TweetCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TweetCell.reuseIdentifier, for: indexPath) as! TweetCell
+        cell.delegate = self
         
         let tweet = tweets[indexPath.row]
         cell.set(tweet: tweet)
@@ -102,5 +101,14 @@ extension FeedController {
 extension FeedController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 120)
+    }
+}
+
+//MARK: TweetCellDelegate
+
+extension FeedController: TweetCellDelegate {
+    func handleProfileImageTapped() {
+        let controller = ProfileController(collectionViewLayout: UICollectionViewFlowLayout())
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
