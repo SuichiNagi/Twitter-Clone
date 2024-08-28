@@ -24,4 +24,6 @@ struct IconImage {
     static let retweetIcon  = UIImage(named: "retweet")
     static let likeIcon     = UIImage(named: "like")
     static let shareIcon    = UIImage(named: "share")
+    
+    static let backImage    = UIImage(named: "baseline_arrow_back_white_24dp")
 }

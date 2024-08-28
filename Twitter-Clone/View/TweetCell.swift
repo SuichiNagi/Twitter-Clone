@@ -102,7 +102,7 @@ class TweetCell: UICollectionViewCell {
     
     private lazy var profileImageView: TCImageView = {
         let image = TCImageView(frame: .zero)
-        image.backgroundColor = UIColor.green
+        image.backgroundColor = ThemeColor.twitterBlue
         image.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleProfileImageTapped))
         image.addGestureRecognizer(tap)
