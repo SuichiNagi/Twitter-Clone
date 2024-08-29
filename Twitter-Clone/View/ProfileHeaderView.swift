@@ -70,6 +70,12 @@ class ProfileHeaderView: UICollectionReusableView {
             make.left.equalToSuperview().offset(12)
             make.right.equalToSuperview().offset(-12)
         }
+        
+        addSubview(categoryBar)
+        categoryBar.snp.makeConstraints { make in
+            make.left.right.bottom.equalToSuperview()
+            make.height.equalTo(50)
+        }
     }
     
     //MARK: Properties
@@ -137,5 +143,10 @@ class ProfileHeaderView: UICollectionReusableView {
         label.numberOfLines = 3
         label.text = "This is a user bio that will span more than one line for test purposes"
         return label
+    }()
+    
+    private lazy var categoryBar: ProfileFilterView = {
+        let categoryBar = ProfileFilterView()
+        return categoryBar
     }()
 }
