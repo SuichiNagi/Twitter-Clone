@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol ProfileHeaderViewDelegate: AnyObject {
+    func handleDismiss()
+}
+
 class ProfileHeaderView: UICollectionReusableView {
     
     static let headerIndentifier = "ProfileHeaderView"
+    
+    weak var delegate: ProfileHeaderViewDelegate?
     
     var user: UserModel? {
         didSet { config() }
@@ -30,7 +36,7 @@ class ProfileHeaderView: UICollectionReusableView {
     //MARK: Selectors
     
     @objc private func handleDismissal() {
-        
+        delegate?.handleDismiss()
     }
     
     @objc private func handleEditProfileFollow() {
