@@ -38,6 +38,10 @@ class ProfileFilterCell: UICollectionViewCell {
     
     //MARK: Helpers
     
+    func set(options: ProfileFilterOptions!) {
+        titleLabel.text = options.description
+    }
+    
     func setUI() {
         backgroundColor = .white
         

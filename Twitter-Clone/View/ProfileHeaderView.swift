@@ -71,10 +71,17 @@ class ProfileHeaderView: UICollectionReusableView {
             make.right.equalToSuperview().offset(-12)
         }
         
-        addSubview(categoryBar)
-        categoryBar.snp.makeConstraints { make in
+        addSubview(filterBar)
+        filterBar.snp.makeConstraints { make in
             make.left.right.bottom.equalToSuperview()
             make.height.equalTo(50)
+        }
+        
+        addSubview(underlineView)
+        underlineView.snp.makeConstraints { make in
+            make.left.bottom.equalToSuperview()
+            make.width.equalTo(frame.size.width / 3)
+            make.height.equalTo(2)
         }
     }
     
@@ -145,8 +152,28 @@ class ProfileHeaderView: UICollectionReusableView {
         return label
     }()
     
-    private lazy var categoryBar: ProfileFilterView = {
-        let categoryBar = ProfileFilterView()
-        return categoryBar
+    private lazy var filterBar: ProfileFilterView = {
+        let filterBar = ProfileFilterView()
+        filterBar.delegate = self
+        return filterBar
     }()
+    
+    private lazy var underlineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = ThemeColor.twitterBlue
+        return view
+    }()
+}
+
+//MARK: ProfileFilterViewDelegate
+
+extension ProfileHeaderView: ProfileFilterViewDelegate {
+    func filterView(_ view: ProfileFilterView, didSelect indexPath: IndexPath) {
+        guard let cell = view.collectionView.cellForItem(at: indexPath) as? ProfileFilterCell else { return }
+        
+        let xPosition = cell.frame.origin.x
+        UIView.animate(withDuration: 0.3) {
+            self.underlineView.frame.origin.x = xPosition
+        }
+    }
 }
