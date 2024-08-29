@@ -11,6 +11,10 @@ class ProfileHeaderView: UICollectionReusableView {
     
     static let headerIndentifier = "ProfileHeaderView"
     
+    var user: UserModel? {
+        didSet { config() }
+    }
+    
     //MARK: Lifecycle
     
     override init(frame: CGRect) {
@@ -33,7 +37,28 @@ class ProfileHeaderView: UICollectionReusableView {
         
     }
     
+    @objc private func handleFollowingTapped() {
+        
+    }
+    
+    @objc private func handleFollowersTapped() {
+        
+    }
+    
     //MARK: Helpers
+    
+    func config() {
+        guard let user else { return }
+        let viewModel = ProfileHeaderViewModel(user: user)
+        
+        profileImageView.sd_setImage(with: viewModel.profileImageURL)
+        fullnameLabel.text = viewModel.fullnameString
+        usernameLabel.text = viewModel.usernameString
+        editProfileFollowButton.setTitle(viewModel.actionButtonTitle, for: .normal)
+        
+        followingLabel.attributedText = viewModel.followingString
+        followersLabel.attributedText = viewModel.followersString
+    }
     
     private func setUI() {
         addSubview(containerView)
@@ -69,6 +94,12 @@ class ProfileHeaderView: UICollectionReusableView {
             make.top.equalTo(profileImageView.snp.bottom).offset(8)
             make.left.equalToSuperview().offset(12)
             make.right.equalToSuperview().offset(-12)
+        }
+        
+        addSubview(followStackView)
+        followStackView.snp.makeConstraints { make in
+            make.top.equalTo(userDetailStack.snp.bottom).offset(8)
+            make.left.equalToSuperview().offset(12)
         }
         
         addSubview(filterBar)
@@ -111,7 +142,6 @@ class ProfileHeaderView: UICollectionReusableView {
     
     private lazy var editProfileFollowButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Loading", for: .normal)
         button.layer.borderColor = ThemeColor.twitterBlue.cgColor
         button.layer.borderWidth = 1.25
         button.layer.cornerRadius = 32 / 2
@@ -130,15 +160,13 @@ class ProfileHeaderView: UICollectionReusableView {
     }()
     
     private lazy var fullnameLabel: UILabel = {
-       let label = UILabel()
-        label.text = "Heath Ledger"
+        let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
     }()
     
     private lazy var usernameLabel: UILabel = {
         let label = UILabel()
-        label.text = "@joker"
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = .lightGray
         return label
@@ -149,6 +177,30 @@ class ProfileHeaderView: UICollectionReusableView {
         label.font = UIFont.systemFont(ofSize: 16)
         label.numberOfLines = 3
         label.text = "This is a user bio that will span more than one line for test purposes"
+        return label
+    }()
+    
+    private lazy var followStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [followingLabel, followersLabel])
+        stack.axis = .horizontal
+        stack.spacing = 8
+        stack.distribution = .fillEqually
+        return stack
+    }()
+    
+    private lazy var followingLabel: UILabel = {
+        let label = UILabel()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleFollowingTapped))
+        label.addGestureRecognizer(tap)
+        label.isUserInteractionEnabled = true
+        return label
+    }()
+    
+    private lazy var followersLabel: UILabel = {
+        let label = UILabel()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleFollowersTapped))
+        label.addGestureRecognizer(tap)
+        label.isUserInteractionEnabled = true
         return label
     }()
     

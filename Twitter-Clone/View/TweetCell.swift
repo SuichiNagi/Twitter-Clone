@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TweetCellDelegate: AnyObject {
-    func handleProfileImageTapped()
+    func handleProfileImageTapped(_ cell: TweetCell)
 }
 
 class TweetCell: UICollectionViewCell {
@@ -16,6 +16,8 @@ class TweetCell: UICollectionViewCell {
     static let reuseIdentifier = "TweetCell"
     
     weak var delegate: TweetCellDelegate?
+
+    var tweet: TweetModel?
     
     var itemViews: [UIView] = []
     
@@ -32,7 +34,7 @@ class TweetCell: UICollectionViewCell {
     //MARK: Selectors
     
     @objc private func handleProfileImageTapped() {
-        delegate?.handleProfileImageTapped()
+        delegate?.handleProfileImageTapped(self)
     }
     
     @objc private func handleCommentTapped() {
@@ -55,6 +57,8 @@ class TweetCell: UICollectionViewCell {
     
     func set(tweet: TweetModel?) {
         guard let tweet else { return }
+        self.tweet = tweet
+        
         let viewModel = TweetViewModel(tweet: tweet)
         
         profileImageView.sd_setImage(with: viewModel.profileImageUrl)

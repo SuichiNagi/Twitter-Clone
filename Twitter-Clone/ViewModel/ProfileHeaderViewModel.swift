@@ -5,7 +5,7 @@
 //  Created by Aldrei Glenn Nuqui on 8/29/24.
 //
 
-import Foundation
+import UIKit
 
 enum ProfileFilterOptions: Int, CaseIterable {
     case tweets
@@ -21,5 +21,52 @@ enum ProfileFilterOptions: Int, CaseIterable {
         case .likes:
             return "Likes"
         }
+    }
+}
+
+struct ProfileHeaderViewModel {
+    private let user: UserModel
+    
+    init(user: UserModel) {
+        self.user = user
+    }
+    
+    var actionButtonTitle: String? {
+        return user.isCurrentUser ? "Edit Profile" : "Follow"
+    }
+    
+    var profileImageURL: URL? {
+        return user.profileImageUrl
+    }
+    
+    var fullnameString: String? {
+        return user.fullname
+    }
+    
+    var usernameString: String? {
+        return "@\(user.username)"
+    }
+    
+    var followersString: NSAttributedString? {
+        return attributedText(withValue: 0, text: " followers")
+    }
+    
+    var followingString: NSAttributedString? {
+        return attributedText(withValue: 2, text: " following")
+    }
+    
+    fileprivate func attributedText(withValue value: Int, text: String) -> NSAttributedString {
+        let attributedTitle = NSMutableAttributedString(
+            string: "\(value)",
+            attributes: [.font: UIFont.boldSystemFont(ofSize: 14)])
+        
+        attributedTitle.append(NSAttributedString(
+            string: "\(text)",
+            attributes: [
+                .font: UIFont.systemFont(ofSize: 14),
+                .foregroundColor: UIColor.lightGray
+            ]))
+        
+        return attributedTitle
     }
 }

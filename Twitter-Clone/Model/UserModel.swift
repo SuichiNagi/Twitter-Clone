@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 struct UserModel {
     let fullname: String
@@ -13,6 +14,8 @@ struct UserModel {
     var profileImageUrl: URL?
     let username: String
     let uid: String
+    
+    var isCurrentUser: Bool { return Auth.auth().currentUser?.uid == uid }
     
     init(uid: String, dictionary: [String: AnyObject]) {
         self.uid = uid
