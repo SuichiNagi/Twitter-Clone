@@ -28,7 +28,7 @@ class FeedController: UICollectionViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = false
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     //MARK: API
@@ -57,6 +57,12 @@ class FeedController: UICollectionViewController {
     func setUI() {
         view.backgroundColor = .white
         
+        navigationController?.navigationBar.addSubview(underlineView)
+        underlineView.snp.makeConstraints { make in
+            make.left.bottom.right.equalToSuperview()
+            make.height.equalTo(0.8)
+        }
+        
         collectionView.register(TweetCell.self, forCellWithReuseIdentifier: TweetCell.reuseIdentifier)
         
         iconImage.snp.makeConstraints { make in
@@ -67,6 +73,13 @@ class FeedController: UICollectionViewController {
     }
     
     //MARK: Properties
+    
+    private lazy var underlineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .gray.withAlphaComponent(0.3)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     private lazy var iconImage: UIImageView = {
         let image = UIImageView(image: UIImage(named: "twitter_logo_blue"))

@@ -77,7 +77,7 @@ class ProfileHeaderView: UICollectionReusableView {
         backButton.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(42)
             make.left.equalToSuperview().offset(16)
-            make.width.height.equalTo(30)
+            make.width.height.equalTo(44)
         }
         
         addSubview(profileImageView)
