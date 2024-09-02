@@ -83,6 +83,8 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+//MARK: ProfileHeaderViewDelegate
+
 extension ProfileController: ProfileHeaderViewDelegate {
     func handleDismiss() {
         navigationController?.popViewController(animated: true)
