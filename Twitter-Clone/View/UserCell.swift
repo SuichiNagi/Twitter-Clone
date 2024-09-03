@@ -25,6 +25,12 @@ class UserCell: UITableViewCell {
     
     //MARK: Helpers
     
+    func set(user: UserModel) {
+        profileImageView.sd_setImage(with: user.profileImageUrl)
+        usernameLabel.text = user.username
+        fullnameLabel.text = user.fullname
+    }
+    
     func setUI() {
         [profileImageView, stackView].forEach(addSubview(_:))
         
@@ -58,14 +64,12 @@ class UserCell: UITableViewCell {
     private lazy var usernameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.text = "Username"
         return label
     }()
     
     private lazy var fullnameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
-        label.text = "Fullname"
         return label
     }()
 }
