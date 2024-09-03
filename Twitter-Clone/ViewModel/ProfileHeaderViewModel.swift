@@ -35,14 +35,6 @@ struct ProfileHeaderViewModel {
         return user.isCurrentUser ? "Edit Profile" : "Follow"
     }
     
-    var profileImageURL: URL? {
-        return user.profileImageUrl
-    }
-    
-    var fullnameString: String? {
-        return user.fullname
-    }
-    
     var usernameString: String? {
         return "@\(user.username)"
     }

@@ -52,14 +52,14 @@ class LoginController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         view.backgroundColor = ThemeColor.twitterBlue
         
-        view.addSubview(logoImageView)
+        [logoImageView, stackView, dontHaveAccountButton].forEach(view.addSubview(_:))
+        
         logoImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(32)
             make.height.width.equalTo(150)
         }
         
-        view.addSubview(stackView)
         stackView.snp.makeConstraints { make in
             make.top.equalTo(logoImageView.snp.bottom).offset(10)
             make.left.equalToSuperview().offset(32)
@@ -70,7 +70,6 @@ class LoginController: UIViewController {
             make.height.equalTo(50)
         }
         
-        view.addSubview(dontHaveAccountButton)
         dontHaveAccountButton.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             make.centerX.equalToSuperview()

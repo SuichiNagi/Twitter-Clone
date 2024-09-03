@@ -19,8 +19,6 @@ class TweetCell: UICollectionViewCell {
 
     var tweet: TweetModel?
     
-    var itemViews: [UIView] = []
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -67,27 +65,8 @@ class TweetCell: UICollectionViewCell {
         
     }
     
-    func setUI() {
-        addSubview(profileImageView)
-        profileImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(48)
-            make.top.equalToSuperview().offset(8)
-            make.left.equalToSuperview().offset(8)
-        }
-        
-        addSubview(stackView)
-        stackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(12)
-            make.left.equalTo(profileImageView.snp.right).offset(12)
-        }
-        
-        addSubview(underLineView)
-        underLineView.snp.makeConstraints { make in
-            make.left.right.bottom.equalToSuperview()
-            make.height.equalTo(1)
-        }
-        
-        itemViews = [commentButton, retweetButton, likeButton, shareButton]
+    private func setItemViews() -> [UIView] {
+        let itemViews = [commentButton, retweetButton, likeButton, shareButton]
         
         for itemView in itemViews {
             itemView.snp.makeConstraints { make in
@@ -95,7 +74,28 @@ class TweetCell: UICollectionViewCell {
             }
         }
         
-        addSubview(actionStackView)
+        return itemViews
+    }
+    
+    func setUI() {
+        [profileImageView, stackView, underLineView, actionStackView].forEach(addSubview(_:))
+        
+        profileImageView.snp.makeConstraints { make in
+            make.width.height.equalTo(48)
+            make.top.equalToSuperview().offset(8)
+            make.left.equalToSuperview().offset(8)
+        }
+        
+        stackView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(12)
+            make.left.equalTo(profileImageView.snp.right).offset(12)
+        }
+        
+        underLineView.snp.makeConstraints { make in
+            make.left.right.bottom.equalToSuperview()
+            make.height.equalTo(1)
+        }
+        
         actionStackView.snp.makeConstraints { make in
             make.bottom.equalToSuperview().offset(-8)
             make.centerX.equalToSuperview()
@@ -107,6 +107,7 @@ class TweetCell: UICollectionViewCell {
     private lazy var profileImageView: TCImageView = {
         let image = TCImageView(frame: .zero)
         image.backgroundColor = ThemeColor.twitterBlue
+        image.layer.cornerRadius = 48 / 2
         image.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleProfileImageTapped))
         image.addGestureRecognizer(tap)
@@ -137,7 +138,7 @@ class TweetCell: UICollectionViewCell {
     }()
     
     private lazy var actionStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: itemViews)
+        let stack = UIStackView(arrangedSubviews: setItemViews())
         stack.axis = .horizontal
         stack.spacing = 72
         return stack

@@ -61,14 +61,14 @@ class UploadTweetController: UIViewController {
         
         configNavBar()
         
-        view.addSubview(profileImageView)
+        [profileImageView, captionTextView].forEach(view.addSubview(_:))
+        
         profileImageView.snp.makeConstraints { make in
             make.width.height.equalTo(48)
             make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
             make.left.equalToSuperview().offset(16)
         }
         
-        view.addSubview(captionTextView)
         captionTextView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
             make.left.equalTo(profileImageView.snp.right).offset(12)
@@ -92,6 +92,7 @@ class UploadTweetController: UIViewController {
     
     private lazy var profileImageView: TCImageView = {
         let image = TCImageView(image: userModel.profileImageUrl!)
+        image.layer.cornerRadius = 48 / 2
         return image
     }()
     

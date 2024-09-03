@@ -58,14 +58,14 @@ class RegistrationController: UIViewController {
     func setUI() {
         view.backgroundColor = ThemeColor.twitterBlue
         
-        view.addSubview(addPhotoButton)
+        [addPhotoButton, stackView, alreadyHaveAccountButton].forEach(view.addSubview(_:))
+        
         addPhotoButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(32)
             make.height.width.equalTo(128)
         }
-        
-        view.addSubview(stackView)
+    
         stackView.snp.makeConstraints { make in
             make.top.equalTo(addPhotoButton.snp.bottom).offset(10)
             make.left.equalToSuperview().offset(32)
@@ -76,7 +76,6 @@ class RegistrationController: UIViewController {
             make.height.equalTo(50)
         }
         
-        view.addSubview(alreadyHaveAccountButton)
         alreadyHaveAccountButton.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             make.centerX.equalToSuperview()

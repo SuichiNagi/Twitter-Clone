@@ -57,8 +57,9 @@ class ProfileHeaderView: UICollectionReusableView {
         guard let user else { return }
         let viewModel = ProfileHeaderViewModel(user: user)
         
-        profileImageView.sd_setImage(with: viewModel.profileImageURL)
-        fullnameLabel.text = viewModel.fullnameString
+        profileImageView.sd_setImage(with: user.profileImageUrl)
+        fullnameLabel.text = user.fullname
+        
         usernameLabel.text = viewModel.usernameString
         editProfileFollowButton.setTitle(viewModel.actionButtonTitle, for: .normal)
         
@@ -67,7 +68,14 @@ class ProfileHeaderView: UICollectionReusableView {
     }
     
     private func setUI() {
-        addSubview(containerView)
+        [containerView,
+         profileImageView,
+         editProfileFollowButton,
+         userDetailStack,
+         followStackView,
+         filterBar,
+         underlineView].forEach(addSubview(_:))
+        
         containerView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
             make.height.equalTo(108)
@@ -80,14 +88,12 @@ class ProfileHeaderView: UICollectionReusableView {
             make.width.height.equalTo(44)
         }
         
-        addSubview(profileImageView)
         profileImageView.snp.makeConstraints { make in
             make.top.equalTo(containerView.snp.bottom).offset(-24)
             make.left.equalToSuperview().offset(8)
             make.width.height.equalTo(80)
         }
         
-        addSubview(editProfileFollowButton)
         editProfileFollowButton.snp.makeConstraints { make in
             make.top.equalTo(containerView.snp.bottom).offset(12)
             make.right.equalToSuperview().offset(-12)
@@ -95,26 +101,22 @@ class ProfileHeaderView: UICollectionReusableView {
             make.height.equalTo(32)
         }
         
-        addSubview(userDetailStack)
         userDetailStack.snp.makeConstraints { make in
             make.top.equalTo(profileImageView.snp.bottom).offset(8)
             make.left.equalToSuperview().offset(12)
             make.right.equalToSuperview().offset(-12)
         }
         
-        addSubview(followStackView)
         followStackView.snp.makeConstraints { make in
             make.top.equalTo(userDetailStack.snp.bottom).offset(8)
             make.left.equalToSuperview().offset(12)
         }
         
-        addSubview(filterBar)
         filterBar.snp.makeConstraints { make in
             make.left.right.bottom.equalToSuperview()
             make.height.equalTo(50)
         }
         
-        addSubview(underlineView)
         underlineView.snp.makeConstraints { make in
             make.left.bottom.equalToSuperview()
             make.width.equalTo(frame.size.width / 3)

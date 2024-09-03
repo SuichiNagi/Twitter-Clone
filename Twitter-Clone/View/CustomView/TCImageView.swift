@@ -28,6 +28,5 @@ class TCImageView: UIImageView {
         contentMode = .scaleAspectFill
         backgroundColor = ThemeColor.twitterBlue
         clipsToBounds = true
-        layer.cornerRadius = 48 / 2
     }
 }
