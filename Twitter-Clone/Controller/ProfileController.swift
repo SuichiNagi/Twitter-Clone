@@ -13,7 +13,7 @@ class ProfileController: UICollectionViewController {
         didSet { collectionView.reloadData() }
     }
     
-    private let user: UserModel
+    private var user: UserModel
     
     init(user: UserModel) {
         self.user = user
@@ -107,7 +107,15 @@ extension ProfileController: ProfileHeaderViewDelegate {
     }
     
     func handleEditProfileFollow(_ header: ProfileHeaderView) {
-        UserService.shared.followUser(uid: user.uid) { ref, error in
-        }
+        
+        if user.isFollowed {
+            UserService.shared.unfollowUser(uid: user.uid) { err, ref in
+                self.user.isFollowed = false
+            }
+        } else {
+            UserService.shared.followUser(uid: user.uid) { err, ref in
+                self.user.isFollowed = true
+            }
+        }        
     }
 }
