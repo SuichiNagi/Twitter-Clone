@@ -27,6 +27,7 @@ class ProfileController: UICollectionViewController {
         
         setUI()
         fetchTweets()
+        checkIfUserIsFollowed()
     }
     
     required init?(coder: NSCoder) {
@@ -41,8 +42,17 @@ class ProfileController: UICollectionViewController {
     //MARK: API
     
     func fetchTweets() {
-        TweetService.shared.fetchTweets(forUser: user) { tweets in
+        TweetService.shared.fetchTweets(forUser: user) { [weak self] tweets in
+            guard let self else { return }
             self.tweets = tweets
+        }
+    }
+    
+    func checkIfUserIsFollowed() {
+        UserService.shared.checkIfUserIsFollowed(uid: user.uid) { [weak self] isFollowed in
+            guard let self else { return }
+            self.user.isFollowed = isFollowed
+            self.collectionView.reloadData()
         }
     }
     
@@ -107,14 +117,22 @@ extension ProfileController: ProfileHeaderViewDelegate {
     }
     
     func handleEditProfileFollow(_ header: ProfileHeaderView) {
+    
+        if user.isCurrentUser {
+            return
+        }
         
         if user.isFollowed {
-            UserService.shared.unfollowUser(uid: user.uid) { err, ref in
+            UserService.shared.unfollowUser(uid: user.uid) { [weak self] err, ref in
+                guard let self else { return }
                 self.user.isFollowed = false
+                collectionView.reloadData()
             }
         } else {
-            UserService.shared.followUser(uid: user.uid) { err, ref in
+            UserService.shared.followUser(uid: user.uid) { [weak self] err, ref in
+                guard let self else { return }
                 self.user.isFollowed = true
+                collectionView.reloadData()
             }
         }        
     }

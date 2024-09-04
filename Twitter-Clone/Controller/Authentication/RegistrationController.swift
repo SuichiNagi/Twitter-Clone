@@ -38,7 +38,9 @@ class RegistrationController: UIViewController {
         
         let credentials = AuthCredentials(email: email, password: password, fullName: fullName, username: username, profileImage: profileImage)
         
-        AuthService.shared.registerUser(credentials: credentials) { error, ref in
+        AuthService.shared.registerUser(credentials: credentials) { [weak self] error, ref in
+            guard let self else { return }
+            
             guard let window = UIApplication.shared.connectedScenes.compactMap({ ($0 as? UIWindowScene)?.keyWindow }).last else { return }
             guard let tab = window.rootViewController as? MainTabController else { return }
             
