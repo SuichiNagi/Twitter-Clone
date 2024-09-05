@@ -26,4 +26,5 @@ struct IconImage {
     static let shareIcon    = UIImage(named: "share")
     
     static let backImage    = UIImage(named: "baseline_arrow_back_white_24dp")
+    static let downArrow    = UIImage(named: "down_arrow_24pt")
 }

@@ -76,7 +76,7 @@ class ProfileController: UICollectionViewController {
     }
 }
 
-//MARK: UICollectionViewDelegate
+//MARK: UICollectionViewDataSource/UICollectionViewDelegate
 
 extension ProfileController {
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -87,11 +87,7 @@ extension ProfileController {
         
         return header
     }
-}
-
-//MARK: UICollectionViewDataSource
-
-extension ProfileController {
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tweets.count
     }

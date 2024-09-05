@@ -30,7 +30,7 @@ class TweetController: UICollectionViewController {
     
     //MARK: Helpers
     
-    func setUI() {
+    private func setUI() {
         collectionView.backgroundColor = .white
         
         collectionView.register(TweetCell.self, forCellWithReuseIdentifier: TweetCell.reuseIdentifier)
@@ -40,13 +40,17 @@ class TweetController: UICollectionViewController {
     //MARK: Properties
 }
 
-//MARK: UICollectionViewDelegate
+//MARK: UICollectionViewDataSource/UICollectionViewDelegate
 
 extension TweetController {
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TweetHeaderView.headerIdentifier, for: indexPath) as! TweetHeaderView
         
         return header
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 4
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

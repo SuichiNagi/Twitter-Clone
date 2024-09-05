@@ -125,13 +125,11 @@ class TweetCell: UICollectionViewCell {
     private lazy var infoLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
-        label.text = "Jokeeeeeeer"
         return label
     }()
     
     private lazy var captionLabel: UILabel = {
         let label = UILabel()
-        label.text = "huwaw"
         label.font = UIFont.systemFont(ofSize: 14)
         label.numberOfLines = 0
         return label
