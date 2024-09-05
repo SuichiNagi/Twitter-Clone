@@ -28,6 +28,7 @@ class ProfileController: UICollectionViewController {
         setUI()
         fetchTweets()
         checkIfUserIsFollowed()
+        fetchUserStats()
     }
     
     required init?(coder: NSCoder) {
@@ -52,6 +53,14 @@ class ProfileController: UICollectionViewController {
         UserService.shared.checkIfUserIsFollowed(uid: user.uid) { [weak self] isFollowed in
             guard let self else { return }
             self.user.isFollowed = isFollowed
+            self.collectionView.reloadData()
+        }
+    }
+    
+    func fetchUserStats() {
+        UserService.shared.fetchUserStats(uid: user.uid) { [weak self] stats in
+            guard let self else { return }
+            self.user.stats = stats
             self.collectionView.reloadData()
         }
     }
