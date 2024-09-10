@@ -42,6 +42,8 @@
 		5F631EF32C76125100CD8872 /* ConversationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F631EF22C76125100CD8872 /* ConversationsController.swift */; };
 		5F631EF52C762B3900CD8872 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F631EF42C762B3900CD8872 /* UIColor+Extension.swift */; };
 		5F87C74B2C7DAEBF00896C11 /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87C74A2C7DAEBF00896C11 /* TweetCell.swift */; };
+		5FA477982C8B062D00A58745 /* FeedControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA477972C8B062D00A58745 /* FeedControllerViewModel.swift */; };
+		5FA4779A2C8B1DAF00A58745 /* ProfileControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA477992C8B1DAF00A58745 /* ProfileControllerViewModel.swift */; };
 		5FACDFE82C805CDA00C54365 /* ProfileFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACDFE72C805CDA00C54365 /* ProfileFilterView.swift */; };
 		5FACDFEA2C805F7200C54365 /* ProfileFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACDFE92C805F7200C54365 /* ProfileFilterCell.swift */; };
 		5FACDFEC2C80AF6600C54365 /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACDFEB2C80AF6600C54365 /* ProfileHeaderViewModel.swift */; };
@@ -111,6 +113,8 @@
 		5F631EF22C76125100CD8872 /* ConversationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsController.swift; sourceTree = "<group>"; };
 		5F631EF42C762B3900CD8872 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		5F87C74A2C7DAEBF00896C11 /* TweetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
+		5FA477972C8B062D00A58745 /* FeedControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedControllerViewModel.swift; sourceTree = "<group>"; };
+		5FA477992C8B1DAF00A58745 /* ProfileControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileControllerViewModel.swift; sourceTree = "<group>"; };
 		5FACDFE72C805CDA00C54365 /* ProfileFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFilterView.swift; sourceTree = "<group>"; };
 		5FACDFE92C805F7200C54365 /* ProfileFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFilterCell.swift; sourceTree = "<group>"; };
 		5FACDFEB2C80AF6600C54365 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
@@ -272,6 +276,8 @@
 			children = (
 				5F00C6032C7E466200DD7673 /* TweetViewModel.swift */,
 				5FACDFEB2C80AF6600C54365 /* ProfileHeaderViewModel.swift */,
+				5FA477972C8B062D00A58745 /* FeedControllerViewModel.swift */,
+				5FA477992C8B1DAF00A58745 /* ProfileControllerViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -583,10 +589,12 @@
 				5F631EF12C76123E00CD8872 /* NotificationsController.swift in Sources */,
 				5F631EF32C76125100CD8872 /* ConversationsController.swift in Sources */,
 				5F58731D2C770057001C0F3D /* IconImage.swift in Sources */,
+				5FA4779A2C8B1DAF00A58745 /* ProfileControllerViewModel.swift in Sources */,
 				5F5873242C7723FB001C0F3D /* Utilities.swift in Sources */,
 				5FACDFEC2C80AF6600C54365 /* ProfileHeaderViewModel.swift in Sources */,
 				5FACDFEA2C805F7200C54365 /* ProfileFilterCell.swift in Sources */,
 				5F137B632C7EF57400703569 /* ProfileController.swift in Sources */,
+				5FA477982C8B062D00A58745 /* FeedControllerViewModel.swift in Sources */,
 				5F58731A2C76FFAD001C0F3D /* ThemeColor.swift in Sources */,
 				5F631EB02C760DEB00CD8872 /* AppDelegate.swift in Sources */,
 				5F631EEF2C76122F00CD8872 /* ExploreController.swift in Sources */,

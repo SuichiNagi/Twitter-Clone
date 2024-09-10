@@ -9,14 +9,10 @@ import UIKit
 
 class ProfileController: UICollectionViewController {
     
-    private var tweets = [TweetModel]() {
-        didSet { collectionView.reloadData() }
-    }
-    
-    private var user: UserModel
+    let profileControllerVM: ProfileControllerViewModel
     
     init(user: UserModel) {
-        self.user = user
+        self.profileControllerVM = ProfileControllerViewModel(user: user)
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
     
@@ -26,9 +22,7 @@ class ProfileController: UICollectionViewController {
         super.viewDidLoad()
         
         setUI()
-        fetchTweets()
-        checkIfUserIsFollowed()
-        fetchUserStats()
+        fetchData()
     }
     
     required init?(coder: NSCoder) {
@@ -42,30 +36,22 @@ class ProfileController: UICollectionViewController {
     
     //MARK: API
     
-    func fetchTweets() {
-        TweetService.shared.fetchTweets(forUser: user) { [weak self] tweets in
-            guard let self else { return }
-            self.tweets = tweets
-        }
-    }
-    
-    func checkIfUserIsFollowed() {
-        UserService.shared.checkIfUserIsFollowed(uid: user.uid) { [weak self] isFollowed in
-            guard let self else { return }
-            self.user.isFollowed = isFollowed
-            self.collectionView.reloadData()
-        }
-    }
-    
-    func fetchUserStats() {
-        UserService.shared.fetchUserStats(uid: user.uid) { [weak self] stats in
-            guard let self else { return }
-            self.user.stats = stats
-            self.collectionView.reloadData()
-        }
+    private func fetchData() {
+        profileControllerVM.fetchTweets()
+        profileControllerVM.checkIfUserIsFollowed()
+        profileControllerVM.fetchUserStats()
+        setupBindings()
     }
     
     //MARK: Helpers
+    
+    private func setupBindings() {
+        // Bind the ViewModel closure to reload data
+        profileControllerVM.didFetch = { [weak self] in
+            guard let self else { return }
+            self.collectionView.reloadData()
+        }
+    }
     
     private func setUI() {
         collectionView.backgroundColor = .white
@@ -82,20 +68,20 @@ extension ProfileController {
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ProfileHeaderView.headerIndentifier, for: indexPath) as! ProfileHeaderView
         
-        header.user = user
+        header.user = profileControllerVM.user
         header.delegate = self
         
         return header
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tweets.count
+        return profileControllerVM.tweets.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TweetCell.reuseIdentifier, for: indexPath) as! TweetCell
         
-        let tweet = tweets[indexPath.row]
+        let tweet = profileControllerVM.tweets[indexPath.row]
         cell.set(tweet: tweet)
         
         return cell
@@ -122,23 +108,7 @@ extension ProfileController: ProfileHeaderViewDelegate {
     }
     
     func handleEditProfileFollow(_ header: ProfileHeaderView) {
-    
-        if user.isCurrentUser {
-            return
-        }
-        
-        if user.isFollowed {
-            UserService.shared.unfollowUser(uid: user.uid) { [weak self] err, ref in
-                guard let self else { return }
-                self.user.isFollowed = false
-                collectionView.reloadData()
-            }
-        } else {
-            UserService.shared.followUser(uid: user.uid) { [weak self] err, ref in
-                guard let self else { return }
-                self.user.isFollowed = true
-                collectionView.reloadData()
-            }
-        }        
+        profileControllerVM.handleEditProfileFollow()
     }
+    
 }

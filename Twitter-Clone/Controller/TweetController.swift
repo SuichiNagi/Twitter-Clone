@@ -66,7 +66,7 @@ extension TweetController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         
         let navHeight: CGFloat = navigationController?.navigationBar.frame.size.height ?? 0.0
-        return CGSize(width: view.frame.size.width, height: 350 - navHeight)
+        return CGSize(width: view.frame.size.width, height: 250)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

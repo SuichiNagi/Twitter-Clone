@@ -11,6 +11,8 @@ class TweetHeaderView: UICollectionReusableView {
     
     static let headerIdentifier = "TweetHeaderView"
     
+    private var actionButtonArray: [UIButton] = []
+    
     //MARK: Lifecycle
     
     override init(frame: CGRect) {
@@ -40,16 +42,33 @@ class TweetHeaderView: UICollectionReusableView {
         
     }
     
+    @objc private func handleCommentTapped() {
+        
+    }
+    
+    @objc private func handleShareTapped() {
+        
+    }
+    
     //MARK: Helpers
     
     private func setUI() {
-        [stackView, 
+        actionButtonArray = [commentButton, retweetButton, likeButton, shareButton]
+        
+        for actionButton in actionButtonArray {
+            actionButton.snp.makeConstraints { make in
+                make.height.width.equalTo(20)
+            }
+        }
+        
+        [stackView,
          captionLabel,
          dateLabel,
          optionsButton,
          dividerView1,
          statsStackView,
-         dividerView2
+         dividerView2,
+         actionStackView
         ].forEach(addSubview(_:))
         
         stackView.snp.makeConstraints { make in
@@ -93,6 +112,11 @@ class TweetHeaderView: UICollectionReusableView {
             make.height.equalTo(1.0)
             make.left.right.equalToSuperview()
             make.top.equalTo(statsStackView.snp.bottom)
+        }
+        
+        actionStackView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-12)
         }
     }
     
@@ -192,5 +216,35 @@ class TweetHeaderView: UICollectionReusableView {
         let view = UIView()
         view.backgroundColor = .systemGroupedBackground
         return view
+    }()
+    
+    private lazy var commentButton: UIButton = {
+        let button = ButtonFactory.build(image: IconImage.commentIcon)
+        button.addTarget(self, action: #selector(handleCommentTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var retweetButton: UIButton = {
+        let button = ButtonFactory.build(image: IconImage.retweetIcon)
+        button.addTarget(self, action: #selector(handleRetweetsTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var likeButton: UIButton = {
+        let button = ButtonFactory.build(image: IconImage.likeIcon)
+        button.addTarget(self, action: #selector(handleLikesTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var shareButton: UIButton = {
+        let button = ButtonFactory.build(image: IconImage.shareIcon)
+        button.addTarget(self, action: #selector(handleShareTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var actionStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: actionButtonArray)
+        stack.spacing = 72
+        return stack
     }()
 }
