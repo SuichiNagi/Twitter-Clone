@@ -62,8 +62,8 @@ class TweetHeaderView: UICollectionReusableView {
         usernameLabel.text = viewModel.usernameText
         profileImageView.sd_setImage(with: viewModel.profileImageUrl)
         dateLabel.text = viewModel.headerTimeStamp
-        retweetsLabel.attributedText = viewModel.retweetCount
-        likesLabel.attributedText = viewModel.likesCount
+        retweetsLabel.attributedText = viewModel.retweetAttributedString
+        likesLabel.attributedText = viewModel.likesAttributedString
     }
     
     private func setUI() {
@@ -208,17 +208,8 @@ class TweetHeaderView: UICollectionReusableView {
         return stackView
     }()
     
-    private lazy var retweetsLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
-        return label
-    }()
-    
-    private lazy var likesLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
-        return label
-    }()
+    private lazy var retweetsLabel = UILabel()
+    private lazy var likesLabel = UILabel()
     
     private lazy var dividerView2: UIView = {
         let view = UIView()

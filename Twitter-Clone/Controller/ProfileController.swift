@@ -9,11 +9,13 @@ import UIKit
 
 class ProfileController: UICollectionViewController {
     
+    let layout = UICollectionViewFlowLayout()
+    
     let profileControllerVM: ProfileControllerViewModel
     
     init(user: UserModel) {
         self.profileControllerVM = ProfileControllerViewModel(user: user)
-        super.init(collectionViewLayout: UICollectionViewFlowLayout())
+        super.init(collectionViewLayout: layout)
     }
     
     //MARK: Lifecycle
@@ -54,6 +56,11 @@ class ProfileController: UICollectionViewController {
     }
     
     private func setUI() {
+        layout.sectionHeadersPinToVisibleBounds = true // Makes the header sticky
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let tabBarHeight = self.tabBarController?.tabBar.frame.size.height
+        collectionView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.size.height - (tabBarHeight ?? 0.0))
+
         collectionView.backgroundColor = .white
         collectionView.contentInsetAdjustmentBehavior = .never
         

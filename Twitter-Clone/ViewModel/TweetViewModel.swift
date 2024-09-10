@@ -21,11 +21,11 @@ struct TweetViewModel {
         return user.profileImageUrl
     }
     
-    var retweetCount: NSAttributedString? {
+    var retweetAttributedString: NSAttributedString? {
         return NSAttributedString.attributedText(withValue: tweet.retweetCount, text: " Retweets")
     }
     
-    var likesCount: NSAttributedString? {
+    var likesAttributedString: NSAttributedString? {
         return NSAttributedString.attributedText(withValue: tweet.likes, text: " Likes")
     }
     

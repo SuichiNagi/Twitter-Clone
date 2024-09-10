@@ -69,6 +69,8 @@ class ProfileHeaderView: UICollectionReusableView {
     }
     
     private func setUI() {
+        backgroundColor = .white
+        
         [containerView,
          profileImageView,
          editProfileFollowButton,
