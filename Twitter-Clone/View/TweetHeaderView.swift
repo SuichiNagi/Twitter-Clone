@@ -52,6 +52,20 @@ class TweetHeaderView: UICollectionReusableView {
     
     //MARK: Helpers
     
+    func set(tweet: TweetModel?) {
+        guard let tweet else { return }
+
+        let viewModel = TweetViewModel(tweet: tweet)
+        
+        captionLabel.text = tweet.caption
+        fullnameLabel.text = tweet.user.fullname
+        usernameLabel.text = viewModel.usernameText
+        profileImageView.sd_setImage(with: viewModel.profileImageUrl)
+        dateLabel.text = viewModel.headerTimeStamp
+        retweetsLabel.attributedText = viewModel.retweetCount
+        likesLabel.attributedText = viewModel.likesCount
+    }
+    
     private func setUI() {
         actionButtonArray = [commentButton, retweetButton, likeButton, shareButton]
         
@@ -148,14 +162,12 @@ class TweetHeaderView: UICollectionReusableView {
     private lazy var fullnameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.text = "Peter Parker"
         return label
     }()
     
     private lazy var usernameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
-        label.text = "spiderman"
         label.textColor = .lightGray
         return label
     }()
@@ -163,14 +175,12 @@ class TweetHeaderView: UICollectionReusableView {
     private lazy var captionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20)
-        label.text = "This is a test caption, Okay this good."
         label.numberOfLines = 0
         return label
     }()
     
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
-        label.text = "5:26 PM - 9/05/2020"
         label.textColor = .lightGray
         label.font = UIFont.systemFont(ofSize: 14)
         label.textAlignment = .left
@@ -201,14 +211,12 @@ class TweetHeaderView: UICollectionReusableView {
     private lazy var retweetsLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
-        label.text = "2 Retweets"
         return label
     }()
     
     private lazy var likesLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
-        label.text = "0 Likes"
         return label
     }()
     

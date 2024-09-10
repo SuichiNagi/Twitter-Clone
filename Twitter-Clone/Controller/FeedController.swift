@@ -12,6 +12,8 @@ class FeedController: UICollectionViewController {
     
     var feedControllerVM = FeedControllerViewModel()
     
+    var arrayTweetSorted: [Int] = []
+    
     var user: UserModel? {
         didSet { configLeftBarButton() }
     }

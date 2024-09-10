@@ -52,25 +52,10 @@ struct ProfileHeaderViewModel {
     }
     
     var followersString: NSAttributedString? {
-        return attributedText(withValue: user.stats?.followers ?? 0, text: " followers")
+        return NSAttributedString.attributedText(withValue: user.stats?.followers ?? 0, text: " followers")
     }
     
     var followingString: NSAttributedString? {
-        return attributedText(withValue: user.stats?.following ?? 0, text: " following")
-    }
-    
-    fileprivate func attributedText(withValue value: Int, text: String) -> NSAttributedString {
-        let attributedTitle = NSMutableAttributedString(
-            string: "\(value)",
-            attributes: [.font: UIFont.boldSystemFont(ofSize: 14)])
-        
-        attributedTitle.append(NSAttributedString(
-            string: "\(text)",
-            attributes: [
-                .font: UIFont.systemFont(ofSize: 14),
-                .foregroundColor: UIColor.lightGray
-            ]))
-        
-        return attributedTitle
+        return NSAttributedString.attributedText(withValue: user.stats?.following ?? 0, text: " following")
     }
 }

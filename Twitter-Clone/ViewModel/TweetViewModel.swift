@@ -21,6 +21,18 @@ struct TweetViewModel {
         return user.profileImageUrl
     }
     
+    var retweetCount: NSAttributedString? {
+        return NSAttributedString.attributedText(withValue: tweet.retweetCount, text: " Retweets")
+    }
+    
+    var likesCount: NSAttributedString? {
+        return NSAttributedString.attributedText(withValue: tweet.likes, text: " Likes")
+    }
+    
+    var usernameText: String {
+        return "@\(user.username)"
+    }
+    
     var userInfoText: NSAttributedString {
         let title = NSMutableAttributedString(string: user.fullname,
                                               attributes: [.font: UIFont.boldSystemFont(ofSize: 14)])
@@ -41,5 +53,11 @@ struct TweetViewModel {
         formatter.unitsStyle = .abbreviated
         let now = Date()
         return formatter.string(from: tweet.timestamp, to: now) ?? ""
+    }
+    
+    var headerTimeStamp: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a ∙ MM/dd/yyyy"
+        return formatter.string(from: tweet.timestamp)
     }
 }
