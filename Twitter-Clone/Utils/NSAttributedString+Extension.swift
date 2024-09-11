@@ -9,7 +9,7 @@ import UIKit
 
 extension NSAttributedString {
     
-    static func attributedText(withValue value: Int, text: String) -> NSAttributedString {
+    static func statsAttributedText(withValue value: Int, text: String) -> NSAttributedString {
         let attributedTitle = NSMutableAttributedString(
             string: "\(value)",
             attributes: [.font: UIFont.boldSystemFont(ofSize: 14)])

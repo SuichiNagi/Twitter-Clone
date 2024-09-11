@@ -59,21 +59,17 @@ class UploadTweetController: UIViewController {
     }
     
     private func setUI() {
-        view.backgroundColor = .white
-        
         configNavBar()
-        
-        [profileImageView, captionTextView].forEach(view.addSubview(_:))
-        
+        view.backgroundColor = .white
+
         profileImageView.snp.makeConstraints { make in
             make.width.height.equalTo(48)
+        }
+
+        view.addSubview(stackView)
+        stackView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
             make.left.equalToSuperview().offset(16)
-        }
-        
-        captionTextView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
-            make.left.equalTo(profileImageView.snp.right).offset(12)
             make.right.equalToSuperview().offset(-16)
         }
     }
@@ -102,6 +98,7 @@ class UploadTweetController: UIViewController {
         let stack = UIStackView(arrangedSubviews: [profileImageView, captionTextView])
         stack.axis = .horizontal
         stack.spacing = 12
+        stack.alignment = .leading
         return stack
     }()
     

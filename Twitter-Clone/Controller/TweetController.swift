@@ -10,11 +10,13 @@ import UIKit
 class TweetController: UICollectionViewController {
     
     private let tweet: TweetModel
+    private let viewModel: TweetViewModel
     
     //MARK: Lifecycle
     
     init(tweet: TweetModel) {
         self.tweet = tweet
+        viewModel = TweetViewModel(tweet: tweet)
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
     
@@ -66,9 +68,7 @@ extension TweetController {
 
 extension TweetController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        
-//        let navHeight: CGFloat = navigationController?.navigationBar.frame.size.height ?? 0.0
-        return CGSize(width: view.frame.size.width, height: 250)
+        return viewModel.getCaptionHeight(view: view)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

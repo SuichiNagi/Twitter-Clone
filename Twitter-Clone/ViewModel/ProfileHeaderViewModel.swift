@@ -52,10 +52,10 @@ struct ProfileHeaderViewModel {
     }
     
     var followersString: NSAttributedString? {
-        return NSAttributedString.attributedText(withValue: user.stats?.followers ?? 0, text: " followers")
+        return NSAttributedString.statsAttributedText(withValue: user.stats?.followers ?? 0, text: " followers")
     }
     
     var followingString: NSAttributedString? {
-        return NSAttributedString.attributedText(withValue: user.stats?.following ?? 0, text: " following")
+        return NSAttributedString.statsAttributedText(withValue: user.stats?.following ?? 0, text: " following")
     }
 }

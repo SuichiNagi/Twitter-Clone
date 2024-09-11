@@ -89,6 +89,7 @@ class TweetCell: UICollectionViewCell {
         stackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(12)
             make.left.equalTo(profileImageView.snp.right).offset(12)
+            make.right.equalToSuperview().offset(-12)
         }
         
         underLineView.snp.makeConstraints { make in

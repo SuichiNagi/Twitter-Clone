@@ -22,11 +22,11 @@ struct TweetViewModel {
     }
     
     var retweetAttributedString: NSAttributedString? {
-        return NSAttributedString.attributedText(withValue: tweet.retweetCount, text: " Retweets")
+        return NSAttributedString.statsAttributedText(withValue: tweet.retweetCount, text: " Retweets")
     }
     
     var likesAttributedString: NSAttributedString? {
-        return NSAttributedString.attributedText(withValue: tweet.likes, text: " Likes")
+        return NSAttributedString.statsAttributedText(withValue: tweet.likes, text: " Likes")
     }
     
     var usernameText: String {
@@ -59,5 +59,40 @@ struct TweetViewModel {
         let formatter = DateFormatter()
         formatter.dateFormat = "h:mm a ∙ MM/dd/yyyy"
         return formatter.string(from: tweet.timestamp)
+    }
+    
+    func size(forWidth width: CGFloat) -> CGSize {
+        let measurementLabel = UILabel()
+        measurementLabel.text = tweet.caption
+        measurementLabel.numberOfLines = 0
+        measurementLabel.lineBreakMode = .byWordWrapping
+        measurementLabel.translatesAutoresizingMaskIntoConstraints = false
+        measurementLabel.snp.makeConstraints { make in
+            make.width.equalTo(width)
+        }
+        return measurementLabel.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+    }
+    
+    //TweetHeaderSection Height
+    func getCaptionHeight(view: UIView) -> CGSize {
+        let headerHeight: CGSize
+        let viewWidth: CGFloat = view.frame.width
+        
+        let captionHeight = size(forWidth: view.frame.width).height
+        
+        let captionInt: Int = Int(captionHeight)
+        
+        switch captionInt {
+        case ...20:
+            headerHeight = CGSize(width: viewWidth, height: 250)
+        case 40...60:
+            headerHeight = CGSize(width: viewWidth, height: captionHeight + 235)
+        case 61...80:
+            headerHeight = CGSize(width: viewWidth, height: captionHeight + 240)
+        default:
+            headerHeight = CGSize(width: viewWidth, height: captionHeight + 245)
+        }
+        
+        return headerHeight
     }
 }

@@ -39,6 +39,10 @@ class CaptionTextView: UITextView {
         font = UIFont.systemFont(ofSize: 16)
         isScrollEnabled = false
         
+        self.snp.makeConstraints { make in
+            make.height.equalTo(100)
+        }
+        
         addSubview(placeholderLabel)
         placeholderLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(8)
