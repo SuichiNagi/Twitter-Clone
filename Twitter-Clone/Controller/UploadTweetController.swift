@@ -82,6 +82,17 @@ class UploadTweetController: UIViewController {
             make.left.equalToSuperview().offset(16)
             make.right.equalToSuperview().offset(-16)
         }
+        
+        setTextAndTitle()
+    }
+    
+    private func setTextAndTitle() {
+        actionButton.setTitle(viewModel.actionButtonTitle, for: .normal)
+        captionTextView.placeholderLabel.text = viewModel.placeholderText
+        
+        replyLabel.isHidden = !viewModel.shouldShowReplyLabel
+        guard let replyText = viewModel.replyText else { return }
+        replyLabel.text = viewModel.replyText
     }
     
     //MARK: Properties
@@ -90,7 +101,6 @@ class UploadTweetController: UIViewController {
         let button = UIButton(type: .system)
         button.frame = CGRect(x: 0, y: 0, width: 64, height: 32)
         button.backgroundColor = ThemeColor.twitterBlue
-        button.setTitle("Tweet", for: .normal)
         button.titleLabel?.textAlignment = .center
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 32 / 2
@@ -104,7 +114,12 @@ class UploadTweetController: UIViewController {
         return image
     }()
     
-    private lazy var stackView: UIStackView = {
+    private lazy var captionTextView: CaptionTextView = {
+        let textView = CaptionTextView()
+        return textView
+    }()
+    
+    private lazy var imageCaptionStack: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [profileImageView, captionTextView])
         stack.axis = .horizontal
         stack.spacing = 12
@@ -112,8 +127,17 @@ class UploadTweetController: UIViewController {
         return stack
     }()
     
-    private lazy var captionTextView: CaptionTextView = {
-        let textView = CaptionTextView()
-        return textView
+    private lazy var replyLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .lightGray
+        return label
+    }()
+    
+    private lazy var stackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [replyLabel, imageCaptionStack])
+        stack.axis = .vertical
+        stack.spacing = 12
+        return stack
     }()
 }
