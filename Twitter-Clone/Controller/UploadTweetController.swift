@@ -10,6 +10,8 @@ import UIKit
 class UploadTweetController: UIViewController {
     
     private let userModel: UserModel
+    private let config: UploadTweetConfiguration
+    private lazy var viewModel = UploadTweetViewModel(config: config)
     
     //MARK: Lifecycle
     
@@ -17,10 +19,18 @@ class UploadTweetController: UIViewController {
         super.viewDidLoad()
         
         setUI()
+        
+        switch config {
+        case .tweet:
+            print("Config is tweet")
+        case .reply(let tweetModel):
+            print("Replying to \(tweetModel.user.username)")
+        }
     }
     
-    init(user: UserModel) {
+    init(user: UserModel, config: UploadTweetConfiguration) {
         self.userModel = user
+        self.config = config
         super.init(nibName: nil, bundle: nil)
     }
     

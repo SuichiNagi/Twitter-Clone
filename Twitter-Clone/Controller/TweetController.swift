@@ -9,13 +9,11 @@ import UIKit
 
 class TweetController: UICollectionViewController {
     
-    private let tweet: TweetModel
     private let viewModel: TweetViewModel
     
     //MARK: Lifecycle
     
     init(tweet: TweetModel) {
-        self.tweet = tweet
         viewModel = TweetViewModel(tweet: tweet)
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
@@ -48,7 +46,7 @@ extension TweetController {
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TweetHeaderView.headerIdentifier, for: indexPath) as! TweetHeaderView
         
-        header.set(tweet: tweet)
+        header.set(tweet: viewModel.tweet)
         
         return header
     }
