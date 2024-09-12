@@ -19,13 +19,6 @@ class UploadTweetController: UIViewController {
         super.viewDidLoad()
         
         setUI()
-        
-        switch config {
-        case .tweet:
-            print("Config is tweet")
-        case .reply(let tweetModel):
-            print("Replying to \(tweetModel.user.username)")
-        }
     }
     
     init(user: UserModel, config: UploadTweetConfiguration) {
@@ -47,7 +40,7 @@ class UploadTweetController: UIViewController {
     @objc private func handleUploadTweet() {
         guard let caption = captionTextView.text else { return }
         
-        TweetService.shared.uploadTweet(caption: caption) { [weak self] error, ref in
+        TweetService.shared.uploadTweet(caption: caption, type: config) { [weak self] error, ref in
             guard let self else { return }
             
             if let error {
