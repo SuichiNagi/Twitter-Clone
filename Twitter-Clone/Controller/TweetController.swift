@@ -10,6 +10,9 @@ import UIKit
 class TweetController: UICollectionViewController {
     
     private let viewModel: TweetViewModel
+    private var replies = [TweetModel]() {
+        didSet { collectionView.reloadData() }
+    }
     
     //MARK: Lifecycle
     
@@ -26,6 +29,16 @@ class TweetController: UICollectionViewController {
         super.viewDidLoad()
         
         setUI()
+        fetchReplies()
+    }
+    
+    //MARK: API
+    
+    func fetchReplies() {
+        TweetService.shared.fetchReplies(forTweet: self.viewModel.tweet) { [weak self] replies in
+            guard let self else { return }
+            self.replies = replies
+        }
     }
     
     //MARK: Helpers
@@ -38,6 +51,11 @@ class TweetController: UICollectionViewController {
     }
     
     //MARK: Properties
+    
+    private lazy var actionSheetLauncher: ActionSheetLauncher = {
+        let actionSheet = ActionSheetLauncher(user: viewModel.user)
+        return actionSheet
+    }()
 }
 
 //MARK: UICollectionViewDataSource/UICollectionViewDelegate
@@ -46,17 +64,21 @@ extension TweetController {
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TweetHeaderView.headerIdentifier, for: indexPath) as! TweetHeaderView
         
+        header.delegate = self
         header.set(tweet: viewModel.tweet)
         
         return header
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return replies.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TweetCell.reuseIdentifier, for: indexPath) as! TweetCell
+        
+        let replies = replies[indexPath.row]
+        cell.set(tweet: replies)
         
         return cell
     }
@@ -71,6 +93,12 @@ extension TweetController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 120)
+    }
+}
+
+extension TweetController: TweetHeaderViewDelegate {
+    func showActionSheet() {
+        actionSheetLauncher.show()
     }
 }
 

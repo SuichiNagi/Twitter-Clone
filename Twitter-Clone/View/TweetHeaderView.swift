@@ -7,11 +7,17 @@
 
 import UIKit
 
+protocol TweetHeaderViewDelegate: AnyObject {
+    func showActionSheet()
+}
+
 class TweetHeaderView: UICollectionReusableView {
     
     static let headerIdentifier = "TweetHeaderView"
     
     private var actionButtonArray: [UIButton] = []
+    
+    weak var delegate: TweetHeaderViewDelegate?
     
     //MARK: Lifecycle
     
@@ -31,7 +37,7 @@ class TweetHeaderView: UICollectionReusableView {
     }
     
     @objc private func showActionSheet() {
-        
+        delegate?.showActionSheet()
     }
     
     @objc private func handleRetweetsTapped() {
