@@ -9,8 +9,13 @@ import UIKit
 
 class ActionSheetLauncher: NSObject {
     
+    private let rowHeight: CGFloat = 60
+    private var tableHeight: CGFloat {
+        return (3 * rowHeight) + 100
+    }
+    
     private let user: UserModel
-    private var window: UIWindow?
+//    private var window: UIWindow?
     
     //MARK: Lifecycle
     
@@ -26,17 +31,17 @@ class ActionSheetLauncher: NSObject {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first(where: { $0.isKeyWindow }) else { return }
         
-        self.window = window
+//        self.window = window
         
         window.addSubview(backgroundView)
         backgroundView.frame = window.frame
         
         window.addSubview(tableViewConfig)
-        tableViewConfig.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: 300)
+        tableViewConfig.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: tableHeight)
         
         UIView.animate(withDuration: 0.3) {
             self.backgroundView.alpha = 1
-            self.tableViewConfig.frame.origin.y -= 300
+            self.tableViewConfig.frame.origin.y -= self.tableHeight
         }
     }
     
@@ -61,20 +66,51 @@ class ActionSheetLauncher: NSObject {
     
     private lazy var tableViewConfig: UITableView = {
         let tableView = UITableView()
-        tableView.backgroundColor = .red
-        tableView.rowHeight = 60
+        tableView.backgroundColor = .white
+        tableView.rowHeight = rowHeight
         tableView.separatorStyle = .none
         tableView.layer.cornerRadius = 5
         tableView.isScrollEnabled = false
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "reuseIdentifier")
+        tableView.register(ActionSheetCell.self, forCellReuseIdentifier: ActionSheetCell.reuseIdentifier)
         return tableView
+    }()
+    
+    private lazy var footerView: UIView = {
+        let view = UIView()
+        
+        let height: CGFloat = 50
+        view.addSubview(cancelButton)
+        cancelButton.snp.makeConstraints { make in
+            make.height.equalTo(height)
+            make.left.equalToSuperview().offset(12)
+            make.right.equalToSuperview().offset(-12)
+            make.centerY.equalToSuperview()
+        }
+        cancelButton.layer.cornerRadius = height / 2
+        return view
+    }()
+    
+    private lazy var cancelButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setTitle("Cancel", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .systemGroupedBackground
+        button.addTarget(self, action: #selector(handleDismissal), for: .touchUpInside)
+        return button
     }()
 }
 
 extension ActionSheetLauncher: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return footerView
+    }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 60
+    }
 }
 
 extension ActionSheetLauncher: UITableViewDataSource {
@@ -83,7 +119,7 @@ extension ActionSheetLauncher: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: ActionSheetCell.reuseIdentifier, for: indexPath) as! ActionSheetCell
         
         return cell
     }
