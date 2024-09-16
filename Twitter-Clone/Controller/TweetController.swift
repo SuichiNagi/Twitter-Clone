@@ -99,6 +99,8 @@ extension TweetController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+//MARK: TweetHeaderViewDelegate
+
 extension TweetController: TweetHeaderViewDelegate {
     
     func showActionSheet() {
@@ -114,6 +116,8 @@ extension TweetController: TweetHeaderViewDelegate {
         }
     }
 }
+
+//MARK: ActionSheetLauncherDelegate
 
 extension TweetController: ActionSheetLauncherDelegate {
     func didSelect(option: ActionSheetOptions) {
