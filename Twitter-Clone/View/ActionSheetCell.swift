@@ -25,6 +25,11 @@ class ActionSheetCell: UITableViewCell {
     
     //MARK: Helpers
     
+    func set(options: ActionSheetOptions?){
+        guard let options else { return }
+        titleLabel.text = options.description
+    }
+    
     private func setUI() {
         addSubview(optionImageView)
         optionImageView.snp.makeConstraints { make in

@@ -9,13 +9,14 @@ import UIKit
 
 class ActionSheetLauncher: NSObject {
     
-    private let rowHeight: CGFloat = 60
-    private var tableHeight: CGFloat {
-        return (3 * rowHeight) + 100
-    }
-    
     private let user: UserModel
 //    private var window: UIWindow?
+    private lazy var viewModel = ActionSheetViewModel(user: user)
+    
+    private let rowHeight: CGFloat = 60
+    private var tableHeight: CGFloat {
+        return (CGFloat(viewModel.options.count) * rowHeight) + 100
+    }
     
     //MARK: Lifecycle
     
@@ -115,12 +116,14 @@ extension ActionSheetLauncher: UITableViewDelegate {
 
 extension ActionSheetLauncher: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return viewModel.options.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ActionSheetCell.reuseIdentifier, for: indexPath) as! ActionSheetCell
         
+        let options = viewModel.options[indexPath.row]
+        cell.set(options: options)
         return cell
     }
     
