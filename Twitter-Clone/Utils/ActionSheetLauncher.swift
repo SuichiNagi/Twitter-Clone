@@ -7,16 +7,22 @@
 
 import UIKit
 
+protocol ActionSheetLauncherDelegate: AnyObject {
+    func didSelect(option: ActionSheetOptions)
+}
+
 class ActionSheetLauncher: NSObject {
     
     private let user: UserModel
-//    private var window: UIWindow?
+    private var window: UIWindow?
     private lazy var viewModel = ActionSheetViewModel(user: user)
     
     private let rowHeight: CGFloat = 60
     private var tableHeight: CGFloat {
         return (CGFloat(viewModel.options.count) * rowHeight) + 100
     }
+    
+    weak var delegate: ActionSheetLauncherDelegate?
     
     //MARK: Lifecycle
     
@@ -27,12 +33,18 @@ class ActionSheetLauncher: NSObject {
     
     //MARK: Helpers
     
+    func showTableView(_ shouldShow: Bool) {
+        guard let window = window else { return }
+        let y = shouldShow ? window.frame.height - tableHeight : window.frame.height
+        tableViewConfig.frame.origin.y = y
+    }
+    
     func show() {
         //        guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first(where: { $0.isKeyWindow }) else { return }
         
-//        self.window = window
+        self.window = window
         
         window.addSubview(backgroundView)
         backgroundView.frame = window.frame
@@ -42,14 +54,14 @@ class ActionSheetLauncher: NSObject {
         
         UIView.animate(withDuration: 0.3) {
             self.backgroundView.alpha = 1
-            self.tableViewConfig.frame.origin.y -= self.tableHeight
+            self.showTableView(true)
         }
     }
     
     @objc func handleDismissal() {
         UIView.animate(withDuration: 0.3) {
             self.backgroundView.alpha = 0
-            self.tableViewConfig.frame.origin.y += 300
+            self.showTableView(false)
         } completion: { _ in
             self.backgroundView.removeFromSuperview()
             self.tableViewConfig.removeFromSuperview()
@@ -104,6 +116,8 @@ class ActionSheetLauncher: NSObject {
     }()
 }
 
+//MARK: UITableViewDelegate
+
 extension ActionSheetLauncher: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return footerView
@@ -113,6 +127,8 @@ extension ActionSheetLauncher: UITableViewDelegate {
         return 60
     }
 }
+
+//MARK: UITableViewDataSource
 
 extension ActionSheetLauncher: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -127,4 +143,16 @@ extension ActionSheetLauncher: UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let option = viewModel.options[indexPath.row]
+        
+        UIView.animate(withDuration: 0.5) {
+            self.backgroundView.alpha = 0
+            self.showTableView(false)
+        } completion: { _ in
+            self.delegate?.didSelect(option: option)
+            self.backgroundView.removeFromSuperview()
+            self.tableViewConfig.removeFromSuperview()
+        }
+    }
 }

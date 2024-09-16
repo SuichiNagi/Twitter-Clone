@@ -9,10 +9,14 @@ import UIKit
 
 class TweetController: UICollectionViewController {
     
+    //MARK: Properties
+    
     private let viewModel: TweetViewModel
     private var replies = [TweetModel]() {
         didSet { collectionView.reloadData() }
     }
+    
+    private var actionSheetLauncher: ActionSheetLauncher!
     
     //MARK: Lifecycle
     
@@ -43,19 +47,18 @@ class TweetController: UICollectionViewController {
     
     //MARK: Helpers
     
+    fileprivate func showingActionSheet(forUser user: UserModel) {
+        actionSheetLauncher = ActionSheetLauncher(user: user)
+        actionSheetLauncher.delegate = self
+        actionSheetLauncher.show()
+    }
+    
     private func setUI() {
         collectionView.backgroundColor = .white
         
         collectionView.register(TweetCell.self, forCellWithReuseIdentifier: TweetCell.reuseIdentifier)
         collectionView.register(TweetHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TweetHeaderView.headerIdentifier)
     }
-    
-    //MARK: Properties
-    
-    private lazy var actionSheetLauncher: ActionSheetLauncher = {
-        let actionSheet = ActionSheetLauncher(user: viewModel.user)
-        return actionSheet
-    }()
 }
 
 //MARK: UICollectionViewDataSource/UICollectionViewDelegate
@@ -97,8 +100,24 @@ extension TweetController: UICollectionViewDelegateFlowLayout {
 }
 
 extension TweetController: TweetHeaderViewDelegate {
+    
     func showActionSheet() {
-        actionSheetLauncher.show()
+        if viewModel.user.isCurrentUser {
+            showingActionSheet(forUser: viewModel.user)
+        } else {
+            UserService.shared.checkIfUserIsFollowed(uid: viewModel.user.uid) { [weak self] isFollowed in
+                guard let self else { return }
+                var user = self.viewModel.tweet.user
+                user.isFollowed = isFollowed
+                self.showingActionSheet(forUser: user)
+            }
+        }
+    }
+}
+
+extension TweetController: ActionSheetLauncherDelegate {
+    func didSelect(option: ActionSheetOptions) {
+
     }
 }
 
