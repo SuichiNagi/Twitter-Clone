@@ -18,7 +18,21 @@ class FeedControllerViewModel {
             guard let self else { return }
             
             self.tweets = tweets
+            
+            self.checkIfUserLikedTweet(tweets)
+
             self.didFetchTweets?()
+        }
+    }
+    
+    func checkIfUserLikedTweet(_ tweets: [TweetModel]) {
+        for (index, tweet) in tweets.enumerated() {
+            TweetService.shared.checkIfUserLikedTweet(tweet) { didLike in
+                guard didLike == true else { return }
+                
+                self.tweets[index].didLike = true
+                self.didFetchTweets?()
+            }
         }
     }
     
