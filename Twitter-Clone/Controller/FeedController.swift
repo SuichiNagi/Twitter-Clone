@@ -144,4 +144,10 @@ extension FeedController: TweetCellDelegate {
         let controller = ProfileController(user: user)
         navigationController?.pushViewController(controller, animated: true)
     }
+    
+    func handleLikeTapped(_ cell: TweetCell) {
+        guard let tweet = cell.tweet else { return }
+        
+        feedControllerVM.likeTweet(tweet: tweet, cell: cell)
+    }
 }

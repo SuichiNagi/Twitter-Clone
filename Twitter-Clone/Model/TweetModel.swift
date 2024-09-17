@@ -11,10 +11,11 @@ struct TweetModel {
     let caption: String
     let tweetID: String
     let uid: String
-    let likes: Int
+    var likes: Int
     let retweetCount: Int
     var timestamp: Date!
     var user: UserModel
+    var didLike = false
     
     init(user: UserModel, tweetID: String, dictionary: [String: Any]) {
         self.tweetID = tweetID
