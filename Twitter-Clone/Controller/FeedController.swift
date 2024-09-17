@@ -104,7 +104,7 @@ extension FeedController {
         cell.delegate = self
         
         let tweet = feedControllerVM.tweets[indexPath.row]
-        cell.set(tweet: tweet)
+        cell.tweet = tweet
         
         return cell
     }

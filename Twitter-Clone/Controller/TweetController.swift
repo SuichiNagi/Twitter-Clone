@@ -81,7 +81,7 @@ extension TweetController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TweetCell.reuseIdentifier, for: indexPath) as! TweetCell
         
         let replies = replies[indexPath.row]
-        cell.set(tweet: replies)
+        cell.tweet = replies
         
         return cell
     }

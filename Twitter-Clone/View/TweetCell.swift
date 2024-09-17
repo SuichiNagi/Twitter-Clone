@@ -19,7 +19,11 @@ class TweetCell: UICollectionViewCell {
     
     weak var delegate: TweetCellDelegate?
 
-    var tweet: TweetModel?
+    var tweet: TweetModel? {
+        didSet {
+            config()
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -55,18 +59,17 @@ class TweetCell: UICollectionViewCell {
     
     //MARK: Helpers
     
-    func set(tweet: TweetModel?) {
+    func config(){
         guard let tweet else { return }
-        self.tweet = tweet
-        
         let viewModel = TweetViewModel(tweet: tweet)
         
         profileImageView.sd_setImage(with: viewModel.profileImageUrl)
         captionLabel.text = tweet.caption
         infoLabel.attributedText = viewModel.userInfoText
-        
+        likeButton.tintColor = viewModel.likeButtonTintColor
+        likeButton.setImage(viewModel.likeButtonImage, for: .normal)
     }
-    
+
     private func setItemViews() -> [UIView] {
         let itemViews = [commentButton, retweetButton, likeButton, shareButton]
         

@@ -89,7 +89,7 @@ extension ProfileController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TweetCell.reuseIdentifier, for: indexPath) as! TweetCell
         
         let tweet = profileControllerVM.tweets[indexPath.row]
-        cell.set(tweet: tweet)
+        cell.tweet = tweet
         
         return cell
     }

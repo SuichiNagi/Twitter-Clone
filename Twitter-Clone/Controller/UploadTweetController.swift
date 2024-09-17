@@ -84,7 +84,7 @@ class UploadTweetController: UIViewController {
         captionTextView.placeholderLabel.text = viewModel.placeholderText
         
         replyLabel.isHidden = !viewModel.shouldShowReplyLabel
-        guard let replyText = viewModel.replyText else { return }
+        guard viewModel.replyText != nil else { return }
         replyLabel.text = viewModel.replyText
     }
     

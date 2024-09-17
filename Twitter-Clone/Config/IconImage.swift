@@ -28,4 +28,7 @@ struct IconImage {
     
     static let backImage        = UIImage(named: "baseline_arrow_back_white_24dp")
     static let downArrow        = UIImage(named: "down_arrow_24pt")
+    
+    static let likeFilled       = UIImage(named: "like_filled")
+    static let like             = UIImage(named: "like")
 }
