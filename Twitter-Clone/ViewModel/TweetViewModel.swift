@@ -95,4 +95,22 @@ struct TweetViewModel {
         
         return headerHeight
     }
+    
+    //ActionSheetOptions
+    func actionSheetOptions(_ option: ActionSheetOptions) {
+        switch option {
+        case .follow(let user):
+            UserService.shared.followUser(uid: user.uid) { err, ref in
+                print("Did follow user \(user.username)")
+            }
+        case .unfollow(let user):
+            UserService.shared.unfollowUser(uid: user.uid) { err, ref in
+                print("Did unfollow user \(user.username)")
+            }
+        case .report:
+            print("Report")
+        case .delete:
+            print("Delete")
+        }
+    }
 }

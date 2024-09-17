@@ -121,7 +121,7 @@ extension TweetController: TweetHeaderViewDelegate {
 
 extension TweetController: ActionSheetLauncherDelegate {
     func didSelect(option: ActionSheetOptions) {
-
+        viewModel.actionSheetOptions(option)
     }
 }
 
