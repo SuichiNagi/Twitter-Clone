@@ -27,7 +27,8 @@ class FeedControllerViewModel {
     
     func checkIfUserLikedTweet(_ tweets: [TweetModel]) {
         for (index, tweet) in tweets.enumerated() {
-            TweetService.shared.checkIfUserLikedTweet(tweet) { didLike in
+            TweetService.shared.checkIfUserLikedTweet(tweet) { [weak self] didLike in
+                guard let self else { return }
                 guard didLike == true else { return }
                 
                 self.tweets[index].didLike = true
