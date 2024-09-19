@@ -58,6 +58,8 @@ class ProfileControllerViewModel {
             UserService.shared.followUser(uid: user.uid) { [weak self] err, ref in
                 guard let self else { return }
                 self.user.isFollowed = true
+                
+                NotificationService.shared.uploadNotification(type: .follow, user: self.user)
                 self.didFetch?()
             }
         }

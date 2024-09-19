@@ -142,7 +142,7 @@ class TweetHeaderView: UICollectionReusableView {
         
         actionStackView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-12)
+            make.top.equalTo(dividerView2.snp.top).offset(12)
         }
     }
     
