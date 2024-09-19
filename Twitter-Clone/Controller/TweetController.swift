@@ -11,7 +11,7 @@ class TweetController: UICollectionViewController {
     
     //MARK: Properties
     
-    private let viewModel: TweetViewModel
+    private var viewModel: TweetViewModel
     private var replies = [TweetModel]() {
         didSet { collectionView.reloadData() }
     }
@@ -68,7 +68,7 @@ extension TweetController {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TweetHeaderView.headerIdentifier, for: indexPath) as! TweetHeaderView
         
         header.delegate = self
-        header.set(tweet: viewModel.tweet)
+        header.tweet = viewModel.tweet
         
         return header
     }

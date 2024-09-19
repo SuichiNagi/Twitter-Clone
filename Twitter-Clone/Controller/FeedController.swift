@@ -148,6 +148,9 @@ extension FeedController: TweetCellDelegate {
     func handleLikeTapped(_ cell: TweetCell) {
         guard let tweet = cell.tweet else { return }
         
-        feedControllerVM.likeTweet(tweet: tweet, cell: cell)
+        feedControllerVM.likeTweet(tweet: tweet, cell: cell) { [weak self] in
+            guard let self else { return }
+              self.feedControllerVM.fetchTweets()
+        }
     }
 }

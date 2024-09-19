@@ -19,6 +19,10 @@ class TweetHeaderView: UICollectionReusableView {
     
     weak var delegate: TweetHeaderViewDelegate?
     
+    var tweet: TweetModel? {
+        didSet { config() }
+    }
+    
     //MARK: Lifecycle
     
     override init(frame: CGRect) {
@@ -58,7 +62,7 @@ class TweetHeaderView: UICollectionReusableView {
     
     //MARK: Helpers
     
-    func set(tweet: TweetModel?) {
+    func config() {
         guard let tweet else { return }
 
         let viewModel = TweetViewModel(tweet: tweet)
