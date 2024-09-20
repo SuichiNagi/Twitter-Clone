@@ -9,7 +9,7 @@ import UIKit
 
 struct TweetViewModel {
     
-    let tweet: TweetModel
+    var tweet: TweetModel
     let user: UserModel
     
     init(tweet: TweetModel) {

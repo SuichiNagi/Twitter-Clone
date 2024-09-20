@@ -105,6 +105,8 @@ extension FeedController {
         
         let tweet = feedControllerVM.tweets[indexPath.row]
         cell.tweet = tweet
+    
+        feedControllerVM.didLikeTweet(tweet: tweet, cell: cell)
         
         return cell
     }
@@ -112,7 +114,10 @@ extension FeedController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let tweet = feedControllerVM.tweets[indexPath.row]
         let controller = TweetController(tweet: tweet)
-        navigationController?.pushViewController(controller, animated: true)
+        
+        feedControllerVM.checkIfUserLikeAndHowManyLikes(tweet: tweet, controller: controller) {
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
     }
 }
 
@@ -148,9 +153,9 @@ extension FeedController: TweetCellDelegate {
     func handleLikeTapped(_ cell: TweetCell) {
         guard let tweet = cell.tweet else { return }
         
-        feedControllerVM.likeTweet(tweet: tweet, cell: cell) { [weak self] in
-            guard let self else { return }
-              self.feedControllerVM.fetchTweets()
-        }
+        feedControllerVM.likeTweet(tweet: tweet, cell: cell) /*{ [weak self] in*/
+//            guard let self else { return }
+//            self.feedControllerVM.fetchTweets()
+//        }
     }
 }

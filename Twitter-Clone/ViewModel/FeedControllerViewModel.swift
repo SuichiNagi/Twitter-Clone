@@ -14,15 +14,27 @@ class FeedControllerViewModel {
     var didFetchTweets: (() -> Void)?
     
     func fetchTweets() {
-           TweetService.shared.fetchTweets { [weak self] tweets in
-               guard let self = self else { return }
-               
-               self.tweets = tweets
-               self.checkIfUserLikedTweet(tweets) { [weak self] in
-                   self?.didFetchTweets?()
-               }
-           }
-       }
+        TweetService.shared.fetchTweets { [weak self] tweets in
+            guard let self = self else { return }
+            
+            self.tweets = tweets
+            self.checkIfUserLikedTweet(tweets) { [weak self] in
+                self?.didFetchTweets?()
+            }
+        }
+    }
+    
+//    func fetchTweets(completion: @escaping () -> Void) {
+//        TweetService.shared.fetchTweets { [weak self] tweets in
+//            guard let self = self else { return }
+//            
+//            self.tweets = tweets
+//            self.checkIfUserLikedTweet(tweets) { [weak self] in
+//                self?.didFetchTweets?()
+//            }
+//        }
+//        completion()
+//    }
     
     func checkIfUserLikedTweet(_ tweets: [TweetModel], completion: @escaping () -> Void) {
            let group = DispatchGroup()
@@ -30,7 +42,7 @@ class FeedControllerViewModel {
            for (index, tweet) in tweets.enumerated() {
                group.enter() //To add tasks to the group.
                TweetService.shared.checkIfUserLikedTweet(tweet) { [weak self] didLike in
-                   guard let self = self else { return }
+                   guard let self else { return }
                    
                    if didLike {
                        self.tweets[index].didLike = true
@@ -44,8 +56,10 @@ class FeedControllerViewModel {
            }
        }
        
-    func likeTweet(tweet: TweetModel, cell: TweetCell, completion: @escaping () -> Void) {
-        TweetService.shared.likeTweet(tweet: tweet) { err, ref in
+    func likeTweet(tweet: TweetModel, cell: TweetCell/*, completion: @escaping () -> Void*/) {
+        TweetService.shared.likeTweet(tweet: tweet) { [weak cell] err, ref in
+            guard let cell else { return }
+            
             DispatchQueue.main.async {
                 cell.tweet?.didLike.toggle()
                 let likes = tweet.didLike ? tweet.likes - 1 : tweet.likes + 1
@@ -55,8 +69,39 @@ class FeedControllerViewModel {
                     guard !tweet.didLike else { return }
                     NotificationService.shared.uploadNotification(type: .like, tweet: tweet)
                 }
-                completion()
+//                completion()
             }
+        }
+    }
+    
+    func didLikeTweet(tweet: TweetModel, cell: TweetCell) {
+        TweetService.shared.checkIfUserLikedTweet(tweet) { [weak cell] didLike in
+            guard let cell else { return }
+            cell.tweet?.didLike = didLike
+        }
+    }
+    
+    func checkIfUserLikeAndHowManyLikes(tweet: TweetModel, controller: TweetController, completion: @escaping () -> Void) {
+        let dispatchGroup = DispatchGroup()
+        
+        // Enter the dispatch group before starting the async call
+        dispatchGroup.enter()
+        TweetService.shared.checkHowManyLikesTweetHas(tweet) { [weak controller] likes in
+            guard let controller else { return }
+            controller.viewModel.tweet.likes = likes
+            dispatchGroup.leave()  // Leave when the async call finishes
+        }
+        
+        // Enter the dispatch group before starting the async call
+        dispatchGroup.enter()
+        TweetService.shared.checkIfUserLikedTweet(tweet) { [weak controller] didLike in
+            guard let controller else { return }
+            controller.viewModel.tweet.didLike = didLike
+            dispatchGroup.leave()  // Leave when the async call finishes
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            completion()
         }
     }
    
