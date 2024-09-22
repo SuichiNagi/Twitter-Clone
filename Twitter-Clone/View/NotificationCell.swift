@@ -5,11 +5,16 @@
 //  Created by Aldrei Glenn Nuqui on 9/22/24.
 //
 
+
 import UIKit
 
 class NotificationCell: UITableViewCell {
     
     static let reuseIdentifier = "NotificationCell"
+    
+    var notification: NotificationModel? {
+        didSet { config() }
+    }
     
     //MARK: Lifecycle
     
@@ -30,6 +35,13 @@ class NotificationCell: UITableViewCell {
     }
     
     //MARK: Helper
+    
+    func config() {
+        guard let notification else { return }
+        
+        profileImageView.sd_setImage(with: notification.user.profileImageUrl)
+        notificationLabel.text = notification.user.username
+    }
     
     private func setUI() {
         addSubview(stackView)
@@ -61,7 +73,6 @@ class NotificationCell: UITableViewCell {
     
     private lazy var notificationLabel: UILabel = {
         let label = UILabel()
-        label.text = "Some test notification message"
         label.numberOfLines = 2
         label.font = UIFont.systemFont(ofSize: 14)
         return label

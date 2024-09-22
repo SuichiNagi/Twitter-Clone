@@ -22,9 +22,8 @@ struct NotificationModel {
     var tweet: TweetModel?
     var type: NotificationType!
     
-    init(user: UserModel, tweet: TweetModel?, dictionary: [String: AnyObject]) {
+    init(user: UserModel, dictionary: [String: AnyObject]) {
         self.user = user
-        self.tweet = tweet
         
         self.tweetID = dictionary["tweetID"] as? String ?? ""
         
