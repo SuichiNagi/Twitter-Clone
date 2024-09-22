@@ -156,9 +156,7 @@ class TweetHeaderView: UICollectionReusableView {
     
     private lazy var profileImageView: TCImageView = {
         let image = TCImageView(frame: .zero)
-        image.backgroundColor = ThemeColor.twitterBlue
         image.layer.cornerRadius = 48 / 2
-        image.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleProfileImageTapped))
         image.addGestureRecognizer(tap)
         return image

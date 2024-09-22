@@ -28,5 +28,6 @@ class TCImageView: UIImageView {
         contentMode = .scaleAspectFill
         backgroundColor = ThemeColor.twitterBlue
         clipsToBounds = true
+        isUserInteractionEnabled = true
     }
 }
