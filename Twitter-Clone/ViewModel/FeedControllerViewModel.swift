@@ -56,7 +56,7 @@ class FeedControllerViewModel {
            }
        }
        
-    func likeTweet(tweet: TweetModel, cell: TweetCell/*, completion: @escaping () -> Void*/) {
+    func likeTweet(tweet: TweetModel, cell: TweetCell, completion: @escaping () -> Void) {
         TweetService.shared.likeTweet(tweet: tweet) { [weak cell] err, ref in
             guard let cell else { return }
             
@@ -67,9 +67,9 @@ class FeedControllerViewModel {
                 
                 DispatchQueue.global(qos: .background) .async {
                     guard !tweet.didLike else { return }
-                    NotificationService.shared.uploadNotification(type: .like, tweet: tweet)
+//                    NotificationService.shared.uploadNotification(type: .like, tweet: tweet)
                 }
-//                completion()
+                completion()
             }
         }
     }

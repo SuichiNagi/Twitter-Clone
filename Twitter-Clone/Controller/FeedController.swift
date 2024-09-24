@@ -104,9 +104,9 @@ extension FeedController {
         cell.delegate = self
         
         let tweet = feedControllerVM.tweets[indexPath.row]
+        
+//        feedControllerVM.didLikeTweet(tweet: tweet, cell: cell)
         cell.tweet = tweet
-    
-        feedControllerVM.didLikeTweet(tweet: tweet, cell: cell)
         
         return cell
     }
@@ -115,9 +115,9 @@ extension FeedController {
         let tweet = feedControllerVM.tweets[indexPath.row]
         let controller = TweetController(tweet: tweet)
         
-        feedControllerVM.checkIfUserLikeAndHowManyLikes(tweet: tweet, controller: controller) {
+//        feedControllerVM.checkIfUserLikeAndHowManyLikes(tweet: tweet, controller: controller) {
             self.navigationController?.pushViewController(controller, animated: true)
-        }
+//        }
     }
 }
 
@@ -153,9 +153,9 @@ extension FeedController: TweetCellDelegate {
     func handleLikeTapped(_ cell: TweetCell) {
         guard let tweet = cell.tweet else { return }
         
-        feedControllerVM.likeTweet(tweet: tweet, cell: cell) /*{ [weak self] in*/
-//            guard let self else { return }
-//            self.feedControllerVM.fetchTweets()
-//        }
+        feedControllerVM.likeTweet(tweet: tweet, cell: cell) { [weak self] in
+            guard let self else { return }
+            self.feedControllerVM.fetchTweets()
+        }
     }
 }

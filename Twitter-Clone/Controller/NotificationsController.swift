@@ -27,7 +27,8 @@ class NotificationsController: UITableViewController {
     //MARK: API
     
     func fetchNotifications() {
-        NotificationService.shared.fetchNotification { notifications in
+        NotificationService.shared.fetchNotification { [weak self] notifications in
+            guard let self else { return }
             self.notifications = notifications
         }
     }
