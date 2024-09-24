@@ -38,9 +38,10 @@ class NotificationCell: UITableViewCell {
     
     func config() {
         guard let notification else { return }
+        let viewModel = NotificationViewModel(notification: notification)
         
-        profileImageView.sd_setImage(with: notification.user.profileImageUrl)
-        notificationLabel.text = notification.user.username
+        profileImageView.sd_setImage(with: viewModel.profileImageURL)
+        notificationLabel.attributedText = viewModel.notificationText
     }
     
     private func setUI() {

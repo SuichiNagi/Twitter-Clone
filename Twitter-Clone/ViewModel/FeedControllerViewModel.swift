@@ -67,42 +67,42 @@ class FeedControllerViewModel {
                 
                 DispatchQueue.global(qos: .background) .async {
                     guard !tweet.didLike else { return }
-//                    NotificationService.shared.uploadNotification(type: .like, tweet: tweet)
+                    NotificationService.shared.uploadNotification(type: .like, tweet: tweet)
                 }
                 completion()
             }
         }
     }
     
-    func didLikeTweet(tweet: TweetModel, cell: TweetCell) {
-        TweetService.shared.checkIfUserLikedTweet(tweet) { [weak cell] didLike in
-            guard let cell else { return }
-            cell.tweet?.didLike = didLike
-        }
-    }
+//    func didLikeTweet(tweet: TweetModel, cell: TweetCell) {
+//        TweetService.shared.checkIfUserLikedTweet(tweet) { [weak cell] didLike in
+//            guard let cell else { return }
+//            cell.tweet?.didLike = didLike
+//        }
+//    }
     
-    func checkIfUserLikeAndHowManyLikes(tweet: TweetModel, controller: TweetController, completion: @escaping () -> Void) {
-        let dispatchGroup = DispatchGroup()
-        
-        // Enter the dispatch group before starting the async call
-        dispatchGroup.enter()
-        TweetService.shared.checkHowManyLikesTweetHas(tweet) { [weak controller] likes in
-            guard let controller else { return }
-            controller.viewModel.tweet.likes = likes
-            dispatchGroup.leave()  // Leave when the async call finishes
-        }
-        
-        // Enter the dispatch group before starting the async call
-        dispatchGroup.enter()
-        TweetService.shared.checkIfUserLikedTweet(tweet) { [weak controller] didLike in
-            guard let controller else { return }
-            controller.viewModel.tweet.didLike = didLike
-            dispatchGroup.leave()  // Leave when the async call finishes
-        }
-        
-        dispatchGroup.notify(queue: .main) {
-            completion()
-        }
-    }
+//    func checkIfUserLikeAndHowManyLikes(tweet: TweetModel, controller: TweetController, completion: @escaping () -> Void) {
+//        let dispatchGroup = DispatchGroup()
+//        
+//        // Enter the dispatch group before starting the async call
+//        dispatchGroup.enter()
+//        TweetService.shared.checkHowManyLikesTweetHas(tweet) { [weak controller] likes in
+//            guard let controller else { return }
+//            controller.viewModel.tweet.likes = likes
+//            dispatchGroup.leave()  // Leave when the async call finishes
+//        }
+//        
+//        // Enter the dispatch group before starting the async call
+//        dispatchGroup.enter()
+//        TweetService.shared.checkIfUserLikedTweet(tweet) { [weak controller] didLike in
+//            guard let controller else { return }
+//            controller.viewModel.tweet.didLike = didLike
+//            dispatchGroup.leave()  // Leave when the async call finishes
+//        }
+//        
+//        dispatchGroup.notify(queue: .main) {
+//            completion()
+//        }
+//    }
    
 }

@@ -18,6 +18,7 @@
 		5F1385DB2C8A4BC1005CD7C0 /* TweetHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1385DA2C8A4BC1005CD7C0 /* TweetHeaderView.swift */; };
 		5F2F322F2C9C272A000C4111 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2F322E2C9C272A000C4111 /* NotificationModel.swift */; };
 		5F2F32312C9C295B000C4111 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2F32302C9C295B000C4111 /* NotificationService.swift */; };
+		5F448D9A2CA317E6005EC5A5 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F448D992CA317E6005EC5A5 /* NotificationViewModel.swift */; };
 		5F58731A2C76FFAD001C0F3D /* ThemeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5873192C76FFAD001C0F3D /* ThemeColor.swift */; };
 		5F58731D2C770057001C0F3D /* IconImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F58731C2C770057001C0F3D /* IconImage.swift */; };
 		5F5873202C7706B3001C0F3D /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F58731F2C7706B3001C0F3D /* LoginController.swift */; };
@@ -95,6 +96,7 @@
 		5F1385DA2C8A4BC1005CD7C0 /* TweetHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetHeaderView.swift; sourceTree = "<group>"; };
 		5F2F322E2C9C272A000C4111 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		5F2F32302C9C295B000C4111 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		5F448D992CA317E6005EC5A5 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
 		5F5873192C76FFAD001C0F3D /* ThemeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeColor.swift; sourceTree = "<group>"; };
 		5F58731C2C770057001C0F3D /* IconImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconImage.swift; sourceTree = "<group>"; };
 		5F58731F2C7706B3001C0F3D /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				5F00C6032C7E466200DD7673 /* TweetViewModel.swift */,
+				5F448D992CA317E6005EC5A5 /* NotificationViewModel.swift */,
 				5FACDFEB2C80AF6600C54365 /* ProfileHeaderViewModel.swift */,
 				5FA477972C8B062D00A58745 /* FeedControllerViewModel.swift */,
 				5FA477992C8B1DAF00A58745 /* ProfileControllerViewModel.swift */,
@@ -610,6 +613,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FC3BBDD2C9843B80041BC92 /* ActionSheetViewModel.swift in Sources */,
+				5F448D9A2CA317E6005EC5A5 /* NotificationViewModel.swift in Sources */,
 				5F5873202C7706B3001C0F3D /* LoginController.swift in Sources */,
 				5FC3BBDB2C982C010041BC92 /* ActionSheetCell.swift in Sources */,
 				5F802E812C927EE000D9347B /* UploadTweetViewModel.swift in Sources */,

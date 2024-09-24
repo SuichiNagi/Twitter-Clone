@@ -110,10 +110,10 @@ struct TweetService {
             completion(snapshot.exists())
         }
     }
-    
-    func checkHowManyLikesTweetHas(_ tweet: TweetModel, completion: @escaping(Int) -> Void) {
-        REF_TWEETS.child(tweet.tweetID).child("likes").observeSingleEvent(of: .value) { snapshot in
-            completion(snapshot.value as? Int ?? 0)
-        }
-    }
+//    
+//    func checkHowManyLikesTweetHas(_ tweet: TweetModel, completion: @escaping(Int) -> Void) {
+//        REF_TWEETS.child(tweet.tweetID).child("likes").observeSingleEvent(of: .value) { snapshot in
+//            completion(snapshot.value as? Int ?? 0)
+//        }
+//    }
 }
