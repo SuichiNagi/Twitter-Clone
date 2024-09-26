@@ -10,6 +10,7 @@ import UIKit
 
 protocol NotificationCellDelegate: AnyObject {
     func didTapProfileImage(_ cell: NotificationCell)
+    func didTapFollow(_ cell: NotificationCell)
 }
 
 class NotificationCell: UITableViewCell {
@@ -40,6 +41,10 @@ class NotificationCell: UITableViewCell {
         delegate?.didTapProfileImage(self)
     }
     
+    @objc private func handleFollowTapped() {
+        delegate?.didTapFollow(self)
+    }
+    
     //MARK: Helper
     
     func config() {
@@ -48,6 +53,9 @@ class NotificationCell: UITableViewCell {
         
         profileImageView.sd_setImage(with: viewModel.profileImageURL)
         notificationLabel.attributedText = viewModel.notificationText
+        
+        followButton.isHidden = viewModel.shouldHideFollowButton
+        followButton.setTitle(viewModel.followButtonText, for: .normal)
     }
     
     private func setUI() {
@@ -60,6 +68,13 @@ class NotificationCell: UITableViewCell {
         
         profileImageView.snp.makeConstraints { make in
             make.width.height.equalTo(40)
+        }
+        
+        contentView.addSubview(followButton)
+        followButton.snp.makeConstraints { make in
+            make.centerY.equalTo(contentView)
+            make.size.equalTo(CGSize(width: 92, height: 32))
+            make.right.equalTo(contentView).offset(-12)
         }
     }
     
@@ -83,5 +98,17 @@ class NotificationCell: UITableViewCell {
         label.numberOfLines = 2
         label.font = UIFont.systemFont(ofSize: 14)
         return label
+    }()
+    
+    private lazy var followButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Loading", for: .normal)
+        button.setTitleColor(ThemeColor.twitterBlue, for: .normal)
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 32 / 2
+        button.layer.borderColor = ThemeColor.twitterBlue.cgColor
+        button.layer.borderWidth = 2
+        button.addTarget(self, action: #selector(handleFollowTapped), for: .touchUpInside)
+        return button
     }()
 }
