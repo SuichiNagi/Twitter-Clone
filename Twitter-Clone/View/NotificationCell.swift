@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol NotificationCellDelegate: AnyObject {
+    func didTapProfileImage(_ cell: NotificationCell)
+}
+
 class NotificationCell: UITableViewCell {
     
     static let reuseIdentifier = "NotificationCell"
@@ -15,6 +19,8 @@ class NotificationCell: UITableViewCell {
     var notification: NotificationModel? {
         didSet { config() }
     }
+    
+    weak var delegate: NotificationCellDelegate?
     
     //MARK: Lifecycle
     
@@ -31,7 +37,7 @@ class NotificationCell: UITableViewCell {
     //MARK: Selector
     
     @objc private func handleProfileImageTapped() {
-        
+        delegate?.didTapProfileImage(self)
     }
     
     //MARK: Helper
@@ -45,11 +51,11 @@ class NotificationCell: UITableViewCell {
     }
     
     private func setUI() {
-        addSubview(stackView)
+        contentView.addSubview(stackView)
         stackView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.left.equalToSuperview().offset(12)
-            make.right.equalToSuperview().offset(-12)
+            make.centerY.equalTo(contentView)
+            make.left.equalTo(contentView).offset(12)
+            make.right.equalTo(contentView).offset(-12)
         }
         
         profileImageView.snp.makeConstraints { make in
