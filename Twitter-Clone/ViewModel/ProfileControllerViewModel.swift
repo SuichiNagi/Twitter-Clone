@@ -41,6 +41,7 @@ class ProfileControllerViewModel {
     func fetchData() {
         fetchTweets()
         fetchLikedTweets()
+        fetchReplies()
         checkIfUserIsFollowed()
         fetchUserStats()
     }
@@ -57,6 +58,13 @@ class ProfileControllerViewModel {
         TweetService.shared.fetchLikes(forUser: user) { [weak self] tweets in
             guard let self else { return }
             self.likedTweets = tweets
+        }
+    }
+    
+    func fetchReplies() {
+        TweetService.shared.fetchReplies(forUser: user) { [weak self] tweets in
+            guard let self else { return }
+            self.replies = tweets
         }
     }
     

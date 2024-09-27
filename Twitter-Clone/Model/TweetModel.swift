@@ -15,6 +15,7 @@ struct TweetModel {
     var timestamp: Date!
     var user: UserModel
     var didLike = false
+    var replyingTo: String?
     
     init(user: UserModel, tweetID: String, dictionary: [String: Any]) {
         self.tweetID = tweetID
@@ -26,6 +27,10 @@ struct TweetModel {
         
         if let timestamp = dictionary["timestamp"] as? Double {
             self.timestamp = Date(timeIntervalSince1970: timestamp)
+        }
+        
+        if let replyingTo = dictionary["replyingTo"] as? String {
+            self.replyingTo = replyingTo
         }
     }
 }

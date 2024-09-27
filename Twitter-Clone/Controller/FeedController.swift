@@ -113,7 +113,6 @@ extension FeedController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let tweet = feedControllerVM.tweets[indexPath.row]
-        print(tweet.didLike)
         let controller = TweetController(tweet: tweet)
         
 //        feedControllerVM.checkIfUserLikeAndHowManyLikes(tweet: tweet, controller: controller) {
