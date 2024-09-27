@@ -66,8 +66,12 @@ class TweetCell: UICollectionViewCell {
         profileImageView.sd_setImage(with: viewModel.profileImageUrl)
         captionLabel.text = tweet.caption
         infoLabel.attributedText = viewModel.userInfoText
+        
         likeButton.tintColor = viewModel.likeButtonTintColor
         likeButton.setImage(viewModel.likeButtonImage, for: .normal)
+        
+        replyLabel.isHidden = viewModel.shouldHideReplyLabel
+        replyLabel.text = viewModel.replyString
     }
 
     private func setItemViews() -> [UIView] {
@@ -83,7 +87,7 @@ class TweetCell: UICollectionViewCell {
     }
     
     func setUI() {
-        [profileImageView, stackView, underLineView, actionStackView].forEach(addSubview(_:))
+        [stackView, underLineView, actionStackView].forEach(addSubview(_:))
         
         profileImageView.snp.makeConstraints { make in
             make.width.height.equalTo(48)
@@ -92,8 +96,8 @@ class TweetCell: UICollectionViewCell {
         }
         
         stackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(12)
-            make.left.equalTo(profileImageView.snp.right).offset(12)
+            make.top.equalToSuperview().offset(4)
+            make.left.equalToSuperview().offset(12)
             make.right.equalToSuperview().offset(-12)
         }
         
@@ -110,6 +114,13 @@ class TweetCell: UICollectionViewCell {
     
     //MARK: Properties
     
+    private lazy var replyLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .lightGray
+        label.font = .systemFont(ofSize: 12)
+        return label
+    }()
+    
     private lazy var profileImageView: TCImageView = {
         let image = TCImageView(frame: .zero)
         image.layer.cornerRadius = 48 / 2
@@ -118,11 +129,27 @@ class TweetCell: UICollectionViewCell {
         return image
     }()
     
-    private lazy var stackView: UIStackView = {
+    private lazy var captionStack: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [infoLabel, captionLabel])
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
         stackView.spacing = 4
+        return stackView
+    }()
+    
+    private lazy var imageCaptionStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [profileImageView, captionStack])
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 12
+        stackView.alignment = .leading
+        return stackView
+    }()
+    
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [replyLabel, imageCaptionStack])
+        stackView.axis = .vertical
+        stackView.spacing = 8
+        stackView.distribution = .fillProportionally
         return stackView
     }()
     

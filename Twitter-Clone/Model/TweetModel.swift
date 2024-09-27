@@ -17,6 +17,8 @@ struct TweetModel {
     var didLike = false
     var replyingTo: String?
     
+    var isReply: Bool { return replyingTo != nil}
+    
     init(user: UserModel, tweetID: String, dictionary: [String: Any]) {
         self.tweetID = tweetID
         self.user = user

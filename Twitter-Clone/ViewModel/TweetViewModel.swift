@@ -17,6 +17,15 @@ struct TweetViewModel {
         self.user = tweet.user
     }
     
+    var shouldHideReplyLabel: Bool {
+        return !tweet.isReply
+    }
+    
+    var replyString: String? {
+        guard let replyingTo = tweet.replyingTo else { return nil }
+        return "→ replying to @\(replyingTo)"
+    }
+    
     var profileImageUrl: URL? {
         return user.profileImageUrl
     }
