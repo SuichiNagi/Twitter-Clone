@@ -114,6 +114,10 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
 //MARK: ProfileHeaderViewDelegate
 
 extension ProfileController: ProfileHeaderViewDelegate {
+    func didSelect(filter: ProfileFilterOptions) {
+        profileControllerVM.selectedFilter = filter
+    }
+    
     func handleDismiss() {
         navigationController?.popViewController(animated: true)
     }
