@@ -90,6 +90,21 @@ struct TweetService {
         }
     }
     
+    func fetchLikes(forUser user: UserModel, completion: @escaping([TweetModel]) -> Void) {
+        var tweets = [TweetModel]()
+        
+        REF_USER_LIKES.child(user.uid).observe(.childAdded) { snapshot in
+            let tweetID = snapshot.key
+            self.fetchTweet(withTweetID: tweetID) { likedTweet in
+                var tweet = likedTweet
+                tweet.didLike = true
+                
+                tweets.append(tweet)
+                completion(tweets)
+            }
+        }
+    }
+    
     func likeTweet(tweet: TweetModel, completion: @escaping(DatabaseCompletion)) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         

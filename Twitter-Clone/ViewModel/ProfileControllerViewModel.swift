@@ -10,7 +10,7 @@ import Foundation
 class ProfileControllerViewModel {
     
     var tweets = [TweetModel]()
-    var likeTweets = [TweetModel]()
+    var likedTweets = [TweetModel]()
     var replies = [TweetModel]()
     
     var currentDataSource: [TweetModel] {
@@ -20,7 +20,7 @@ class ProfileControllerViewModel {
         case .replies:
             return replies
         case .likes:
-            return likeTweets
+            return likedTweets
         }
     }
     
@@ -38,11 +38,25 @@ class ProfileControllerViewModel {
         self.user = user
     }
     
+    func fetchData() {
+        fetchTweets()
+        fetchLikedTweets()
+        checkIfUserIsFollowed()
+        fetchUserStats()
+    }
+    
     func fetchTweets() {
         TweetService.shared.fetchTweets(forUser: user) { [weak self] tweets in
             guard let self else { return }
             self.tweets = tweets
             self.didFetch?()
+        }
+    }
+    
+    func fetchLikedTweets() {
+        TweetService.shared.fetchLikes(forUser: user) { [weak self] tweets in
+            guard let self else { return }
+            self.likedTweets = tweets
         }
     }
     

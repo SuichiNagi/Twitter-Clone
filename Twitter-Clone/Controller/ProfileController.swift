@@ -39,9 +39,7 @@ class ProfileController: UICollectionViewController {
     //MARK: API
     
     private func fetchData() {
-        profileControllerVM.fetchTweets()
-        profileControllerVM.checkIfUserIsFollowed()
-        profileControllerVM.fetchUserStats()
+        profileControllerVM.fetchData()
         setupBindings()
     }
     
@@ -58,14 +56,15 @@ class ProfileController: UICollectionViewController {
     private func setUI() {
         layout.sectionHeadersPinToVisibleBounds = true // Makes the header sticky
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        let tabBarHeight = self.tabBarController?.tabBar.frame.size.height
-        collectionView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.size.height - (tabBarHeight ?? 0.0))
-
         collectionView.backgroundColor = .white
         collectionView.contentInsetAdjustmentBehavior = .never
         
         collectionView.register(TweetCell.self, forCellWithReuseIdentifier: TweetCell.reuseIdentifier)
         collectionView.register(ProfileHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ProfileHeaderView.headerIndentifier)
+        
+        guard let tabBarHeight = self.tabBarController?.tabBar.frame.size.height else { return }
+        collectionView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.size.height - tabBarHeight)
+        collectionView.contentInset.bottom = tabBarHeight
     }
 }
 
