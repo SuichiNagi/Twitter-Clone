@@ -25,6 +25,15 @@ class ProfileFilterView: UIView {
         setUI()
     }
     
+    override func layoutSubviews() {
+        addSubview(underlineView)
+        underlineView.snp.makeConstraints { make in
+            make.left.bottom.equalToSuperview()
+            make.width.equalTo(frame.size.width / 3)
+            make.height.equalTo(2)
+        }
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -51,6 +60,12 @@ class ProfileFilterView: UIView {
         collection.dataSource = self
         collection.register(ProfileFilterCell.self, forCellWithReuseIdentifier: ProfileFilterCell.reuseIdentifier)
         return collection
+    }()
+    
+    private lazy var underlineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = ThemeColor.twitterBlue
+        return view
     }()
 }
 
@@ -88,6 +103,12 @@ extension ProfileFilterView: UICollectionViewDelegateFlowLayout {
 
 extension ProfileFilterView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! ProfileFilterCell
+        let xPosition = cell.frame.origin.x
+        
+        UIView.animate(withDuration: 0.3) {
+            self.underlineView.frame.origin.x = xPosition
+        }
         delegate?.filterView(self, didSelect: indexPath)
     }
 }

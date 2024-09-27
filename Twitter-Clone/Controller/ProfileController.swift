@@ -82,13 +82,13 @@ extension ProfileController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return profileControllerVM.tweets.count
+        return profileControllerVM.currentDataSource.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TweetCell.reuseIdentifier, for: indexPath) as! TweetCell
         
-        let tweet = profileControllerVM.tweets[indexPath.row]
+        let tweet = profileControllerVM.currentDataSource[indexPath.row]
         cell.tweet = tweet
         
         return cell
@@ -103,7 +103,7 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let tweet = profileControllerVM.tweets[indexPath.row]
+        let tweet = profileControllerVM.currentDataSource[indexPath.row]
         let viewModel = TweetViewModel(tweet: tweet)
         let captionHeight = viewModel.size(forWidth: view.frame.width).height
         

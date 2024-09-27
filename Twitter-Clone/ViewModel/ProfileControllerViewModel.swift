@@ -10,10 +10,29 @@ import Foundation
 class ProfileControllerViewModel {
     
     var tweets = [TweetModel]()
+    var likeTweets = [TweetModel]()
+    var replies = [TweetModel]()
+    
+    var currentDataSource: [TweetModel] {
+        switch selectedFilter {
+        case .tweets:
+            return tweets
+        case .replies:
+            return replies
+        case .likes:
+            return likeTweets
+        }
+    }
     
     var user: UserModel
     
     var didFetch: (() -> Void)?
+    
+    var selectedFilter: ProfileFilterOptions =  .tweets {
+        didSet {
+            didFetch?()
+        }
+    }
     
     init(user: UserModel) {
         self.user = user

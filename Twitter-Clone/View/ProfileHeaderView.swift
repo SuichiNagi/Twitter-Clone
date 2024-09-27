@@ -76,8 +76,7 @@ class ProfileHeaderView: UICollectionReusableView {
          editProfileFollowButton,
          userDetailStack,
          followStackView,
-         filterBar,
-         underlineView].forEach(addSubview(_:))
+         filterBar].forEach(addSubview(_:))
         
         containerView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
@@ -118,12 +117,6 @@ class ProfileHeaderView: UICollectionReusableView {
         filterBar.snp.makeConstraints { make in
             make.left.right.bottom.equalToSuperview()
             make.height.equalTo(50)
-        }
-        
-        underlineView.snp.makeConstraints { make in
-            make.left.bottom.equalToSuperview()
-            make.width.equalTo(frame.size.width / 3)
-            make.height.equalTo(2)
         }
     }
     
@@ -220,23 +213,12 @@ class ProfileHeaderView: UICollectionReusableView {
         filterBar.delegate = self
         return filterBar
     }()
-    
-    private lazy var underlineView: UIView = {
-        let view = UIView()
-        view.backgroundColor = ThemeColor.twitterBlue
-        return view
-    }()
 }
 
 //MARK: ProfileFilterViewDelegate
 
 extension ProfileHeaderView: ProfileFilterViewDelegate {
     func filterView(_ view: ProfileFilterView, didSelect indexPath: IndexPath) {
-        guard let cell = view.collectionView.cellForItem(at: indexPath) as? ProfileFilterCell else { return }
-        
-        let xPosition = cell.frame.origin.x
-        UIView.animate(withDuration: 0.3) {
-            self.underlineView.frame.origin.x = xPosition
-        }
+
     }
 }
