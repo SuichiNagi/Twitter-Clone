@@ -25,6 +25,7 @@ class ProfileController: UICollectionViewController {
         
         setUI()
         fetchData()
+        didEditProfile()
     }
     
     required init?(coder: NSCoder) {
@@ -47,9 +48,17 @@ class ProfileController: UICollectionViewController {
     
     private func setupBindings() {
         // Bind the ViewModel closure to reload data
-        profileControllerVM.didFetch = { [weak self] in
-            guard let self else { return }
+        profileControllerVM.didFetch = {
             self.collectionView.reloadData()
+        }
+    }
+    
+    private func didEditProfile() {
+        profileControllerVM.didEditProfile = {
+            let controller = EditProfileController(user: self.profileControllerVM.user)
+            let nav = UINavigationController(rootViewController: controller)
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: true)
         }
     }
     
@@ -133,5 +142,4 @@ extension ProfileController: ProfileHeaderViewDelegate {
     func handleEditProfileFollow(_ header: ProfileHeaderView) {
         profileControllerVM.handleEditProfileFollow()
     }
-    
 }

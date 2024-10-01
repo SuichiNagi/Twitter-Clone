@@ -44,8 +44,6 @@ class TweetController: UICollectionViewController {
     //MARK: API
     
     func fetchReplies() {
-        
-        
         TweetService.shared.fetchReplies(forTweet: self.viewModel.tweet) { [weak self] replies in
             guard let self else { return }
             self.replies = replies

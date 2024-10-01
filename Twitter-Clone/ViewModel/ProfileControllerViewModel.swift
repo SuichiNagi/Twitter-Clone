@@ -27,6 +27,7 @@ class ProfileControllerViewModel {
     var user: UserModel
     
     var didFetch: (() -> Void)?
+    var didEditProfile: (() -> Void)?
     
     var selectedFilter: ProfileFilterOptions =  .tweets {
         didSet {
@@ -86,6 +87,7 @@ class ProfileControllerViewModel {
     
     func handleEditProfileFollow() {
         if user.isCurrentUser {
+            self.didEditProfile?()
             return
         }
         
