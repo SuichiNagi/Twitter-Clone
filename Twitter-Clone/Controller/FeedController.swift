@@ -30,13 +30,22 @@ class FeedController: UICollectionViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
+    
+    //MARK: Selectors
+    
+    @objc func handleRefresh() {
+        feedControllerVM.fetchTweets()
+    }
+    
     //MARK: Helpers
     
     private func setupBindings() {
+        collectionView.refreshControl?.beginRefreshing()
         // Bind the ViewModel closure to reload data
         feedControllerVM.didFetchTweets = { [weak self] in
             guard let self else { return }
             self.collectionView.reloadData()
+            self.collectionView.refreshControl?.endRefreshing()
         }
     }
     
@@ -67,6 +76,10 @@ class FeedController: UICollectionViewController {
         }
         
         navigationItem.titleView = iconImage
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        collectionView.refreshControl = refreshControl
     }
     
     //MARK: Properties
@@ -105,7 +118,6 @@ extension FeedController {
         
         let tweet = feedControllerVM.tweets[indexPath.row]
         
-//        feedControllerVM.didLikeTweet(tweet: tweet, cell: cell)
         cell.tweet = tweet
         
         return cell
@@ -115,9 +127,7 @@ extension FeedController {
         let tweet = feedControllerVM.tweets[indexPath.row]
         let controller = TweetController(tweet: tweet)
         
-//        feedControllerVM.checkIfUserLikeAndHowManyLikes(tweet: tweet, controller: controller) {
-            self.navigationController?.pushViewController(controller, animated: true)
-//        }
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }
 
