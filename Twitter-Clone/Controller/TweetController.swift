@@ -36,9 +36,16 @@ class TweetController: UICollectionViewController {
         fetchReplies()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
     //MARK: API
     
     func fetchReplies() {
+        
+        
         TweetService.shared.fetchReplies(forTweet: self.viewModel.tweet) { [weak self] replies in
             guard let self else { return }
             self.replies = replies

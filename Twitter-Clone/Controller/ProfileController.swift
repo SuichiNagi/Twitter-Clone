@@ -92,6 +92,11 @@ extension ProfileController {
         
         return cell
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let controller = TweetController(tweet: profileControllerVM.currentDataSource[indexPath.row])
+        navigationController?.pushViewController(controller, animated: true)
+    }
 }
 
 //MARK: UICollectionViewFlowLayout
