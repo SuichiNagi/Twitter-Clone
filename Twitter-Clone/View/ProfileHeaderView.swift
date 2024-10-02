@@ -15,7 +15,7 @@ protocol ProfileHeaderViewDelegate: AnyObject {
 
 class ProfileHeaderView: UICollectionReusableView {
     
-    static let headerIndentifier = "ProfileHeaderView"
+    static let headerIdentifier = "ProfileHeaderView"
     
     weak var delegate: ProfileHeaderViewDelegate?
     
