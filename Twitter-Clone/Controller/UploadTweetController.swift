@@ -111,8 +111,8 @@ class UploadTweetController: UIViewController {
         return image
     }()
     
-    private lazy var captionTextView: CaptionTextView = {
-        let textView = CaptionTextView()
+    private lazy var captionTextView: InputTextView = {
+        let textView = InputTextView()
         return textView
     }()
     
