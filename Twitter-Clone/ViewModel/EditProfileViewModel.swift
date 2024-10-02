@@ -46,6 +46,10 @@ struct EditProfileViewModel {
         }
     }
     
+    var shouldHidePlaceHolderlabel: Bool {
+        return user.bio != nil
+    }
+    
     var shouldHideTextField: Bool {
         return option == .bio
     }
