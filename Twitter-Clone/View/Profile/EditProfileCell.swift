@@ -61,22 +61,22 @@ class EditProfileCell: UITableViewCell {
     private func setUI() {
         selectionStyle = .none
         
-        [titleLabel, infoTextField, bioTextView].forEach(addSubview(_:))
+        [titleLabel, infoTextField, bioTextView].forEach(contentView.addSubview(_:))
         
         titleLabel.snp.makeConstraints { make in
             make.width.equalTo(100)
-            make.top.equalToSuperview().offset(12)
-            make.left.equalToSuperview().offset(16)
+            make.top.equalTo(contentView).offset(12)
+            make.left.equalTo(contentView).offset(16)
         }
         
         let viewArr = [infoTextField, bioTextView]
         
         for view in viewArr {
             view.snp.makeConstraints { make in
-                make.top.equalToSuperview().offset(4)
+                make.top.equalTo(contentView).offset(4)
                 make.left.equalTo(titleLabel.snp.right).offset(16)
-                make.bottom.equalToSuperview()
-                make.right.equalToSuperview().offset(-8)
+                make.bottom.equalTo(contentView)
+                make.right.equalTo(contentView).offset(-8)
             }
         }
     }

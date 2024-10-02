@@ -7,12 +7,20 @@
 
 import UIKit
 
+protocol EditProfileControllerDelegate: AnyObject {
+    func controller(_ controller: EditProfileController, wantsToUpdate user: UserModel)
+}
+
 class EditProfileController: UITableViewController {
+    
+    weak var delegate: EditProfileControllerDelegate?
     
     private var user: UserModel
     private var selectedImage: UIImage? {
         didSet { headerView.profileImageView.image = selectedImage }
     }
+    
+    private var userInfoChanged = false
     
     //MARK: Lifecycle
     
@@ -33,6 +41,15 @@ class EditProfileController: UITableViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: API
+    
+    func updateUserData() {
+        UserService.shared.saveUserData(user: user) { [weak self] err, ref in
+            guard let self else { return }
+            delegate?.controller(self, wantsToUpdate: self.user)
+        }
+    }
+    
     //MARK: Selectors
     
     @objc func handleCancel() {
@@ -40,7 +57,7 @@ class EditProfileController: UITableViewController {
     }
     
     @objc func handleDone() {
-        
+        updateUserData()
     }
     
     //MARK: Helpers
@@ -87,6 +104,8 @@ class EditProfileController: UITableViewController {
     }()
 }
 
+//MARK: UITableViewDataSource & UITableViewDelegate
+
 extension EditProfileController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return EditProfileOptions.allCases.count
@@ -109,11 +128,15 @@ extension EditProfileController {
     }
 }
 
+//MARK: EditProfileHeaderViewDelegate
+
 extension EditProfileController: EditProfileHeaderViewDelegate {
     func didTapChangeProfilePhoto() {
         present(imagePicker, animated: true)
     }
 }
+
+//MARK: UIImagePickerControllerDelegate
 
 extension EditProfileController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -126,9 +149,13 @@ extension EditProfileController: UIImagePickerControllerDelegate, UINavigationCo
     
 }
 
+//MARK: EditProfileCellDelegate
+
 extension EditProfileController: EditProfileCellDelegate {
     func updateUserInfo(_ cell: EditProfileCell) {
         guard let viewModel = cell.viewModel else { return }
+        userInfoChanged = true
+        navigationItem.rightBarButtonItem?.isEnabled = true
         
         switch viewModel.option {
         case .fullname:

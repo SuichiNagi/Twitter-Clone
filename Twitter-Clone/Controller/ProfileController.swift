@@ -56,6 +56,7 @@ class ProfileController: UICollectionViewController {
     private func didEditProfile() {
         profileControllerVM.didEditProfile = {
             let controller = EditProfileController(user: self.profileControllerVM.user)
+            controller.delegate = self
             let nav = UINavigationController(rootViewController: controller)
             nav.modalPresentationStyle = .fullScreen
             self.present(nav, animated: true)
@@ -141,5 +142,15 @@ extension ProfileController: ProfileHeaderViewDelegate {
     
     func handleEditProfileFollow(_ header: ProfileHeaderView) {
         profileControllerVM.handleEditProfileFollow()
+    }
+}
+
+//MARK: EditProfileControllerDelegate
+
+extension ProfileController: EditProfileControllerDelegate {
+    func controller(_ controller: EditProfileController, wantsToUpdate user: UserModel) {
+        controller.dismiss(animated: true)
+        self.profileControllerVM.user = user
+        self.collectionView.reloadData()
     }
 }
