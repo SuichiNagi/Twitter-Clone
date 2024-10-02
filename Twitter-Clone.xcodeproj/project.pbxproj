@@ -45,6 +45,8 @@
 		5F631EF32C76125100CD8872 /* ConversationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F631EF22C76125100CD8872 /* ConversationsController.swift */; };
 		5F631EF52C762B3900CD8872 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F631EF42C762B3900CD8872 /* UIColor+Extension.swift */; };
 		5F7A24E52CADA80400F4FA54 /* EditProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7A24E42CADA80400F4FA54 /* EditProfileHeaderView.swift */; };
+		5F7A24E72CADAE6500F4FA54 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7A24E62CADAE6500F4FA54 /* EditProfileViewModel.swift */; };
+		5F7A24E92CADAEB400F4FA54 /* EditProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7A24E82CADAEB400F4FA54 /* EditProfileCell.swift */; };
 		5F802E812C927EE000D9347B /* UploadTweetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F802E802C927EE000D9347B /* UploadTweetViewModel.swift */; };
 		5F87C74B2C7DAEBF00896C11 /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87C74A2C7DAEBF00896C11 /* TweetCell.swift */; };
 		5F92219E2C9032D200DE95CA /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F92219D2C9032D200DE95CA /* NSAttributedString+Extension.swift */; };
@@ -127,6 +129,8 @@
 		5F631EF22C76125100CD8872 /* ConversationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsController.swift; sourceTree = "<group>"; };
 		5F631EF42C762B3900CD8872 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		5F7A24E42CADA80400F4FA54 /* EditProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileHeaderView.swift; sourceTree = "<group>"; };
+		5F7A24E62CADAE6500F4FA54 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
+		5F7A24E82CADAEB400F4FA54 /* EditProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileCell.swift; sourceTree = "<group>"; };
 		5F802E802C927EE000D9347B /* UploadTweetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTweetViewModel.swift; sourceTree = "<group>"; };
 		5F87C74A2C7DAEBF00896C11 /* TweetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
 		5F92219D2C9032D200DE95CA /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
@@ -304,6 +308,7 @@
 				5FA477992C8B1DAF00A58745 /* ProfileControllerViewModel.swift */,
 				5F802E802C927EE000D9347B /* UploadTweetViewModel.swift */,
 				5FC3BBDC2C9843B80041BC92 /* ActionSheetViewModel.swift */,
+				5F7A24E62CADAE6500F4FA54 /* EditProfileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -363,6 +368,7 @@
 				5FACDFE72C805CDA00C54365 /* ProfileFilterView.swift */,
 				5FACDFE92C805F7200C54365 /* ProfileFilterCell.swift */,
 				5F7A24E42CADA80400F4FA54 /* EditProfileHeaderView.swift */,
+				5F7A24E82CADAEB400F4FA54 /* EditProfileCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -650,6 +656,7 @@
 				5FA59D672CA05992007EC9C8 /* NotificationCell.swift in Sources */,
 				5F5A53842C78B79900C87AA3 /* UserModel.swift in Sources */,
 				5F631EB22C760DEB00CD8872 /* SceneDelegate.swift in Sources */,
+				5F7A24E72CADAE6500F4FA54 /* EditProfileViewModel.swift in Sources */,
 				5FD605B52C7D13ED00F98836 /* CaptionTextView.swift in Sources */,
 				5F631EE52C7610AC00CD8872 /* MainTabController.swift in Sources */,
 				5F631EED2C76120700CD8872 /* FeedController.swift in Sources */,
@@ -664,6 +671,7 @@
 				5F00C6012C7E154600DD7673 /* ButtonFactory.swift in Sources */,
 				5F5A53822C7897A800C87AA3 /* UserService.swift in Sources */,
 				5F137B652C7F224000703569 /* ProfileHeaderView.swift in Sources */,
+				5F7A24E92CADAEB400F4FA54 /* EditProfileCell.swift in Sources */,
 				5F92219E2C9032D200DE95CA /* NSAttributedString+Extension.swift in Sources */,
 				5F5A53802C787BF200C87AA3 /* AuthService.swift in Sources */,
 				5F5873222C7706F5001C0F3D /* RegistrationController.swift in Sources */,
