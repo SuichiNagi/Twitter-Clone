@@ -22,7 +22,7 @@ class EditProfileController: UITableViewController {
         super.viewDidLoad()
         
         configNavigationBar()
-        setUI()
+        configTableView()
     }
     
     required init?(coder: NSCoder) {
@@ -61,7 +61,21 @@ class EditProfileController: UITableViewController {
         navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
-    private func setUI() {
-        
+    private func configTableView() {
+        tableView.tableHeaderView = headerView
+        headerView.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 180)
+        tableView.tableFooterView = UIView()
+    }
+    
+    private lazy var headerView: EditProfileHeaderView = {
+        let view = EditProfileHeaderView(user: self.user)
+        view.delegate = self
+        return view
+    }()
+}
+
+extension EditProfileController: EditProfileHeaderViewDelegate {
+    func didTapChangeProfilePhoto() {
+
     }
 }
