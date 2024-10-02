@@ -9,10 +9,10 @@ import Foundation
 import Firebase
 
 struct UserModel {
-    let fullname: String
+    var fullname: String
     let email: String
     var profileImageUrl: URL?
-    let username: String
+    var username: String
     let uid: String
     var isFollowed = false
     var stats: UserRelationStats?

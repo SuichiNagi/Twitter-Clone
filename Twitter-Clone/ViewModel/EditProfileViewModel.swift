@@ -23,7 +23,7 @@ enum EditProfileOptions: Int, CaseIterable {
 
 struct EditProfileViewModel {
     
-    private let user: UserModel
+    private var user: UserModel
     let option: EditProfileOptions
     
     init(user: UserModel, option: EditProfileOptions) {

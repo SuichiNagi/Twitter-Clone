@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol EditProfileCellDelegate: AnyObject {
+    func updateUserInfo(_ cell: EditProfileCell)
+}
+
 class EditProfileCell: UITableViewCell {
     
     static let reuseIdentifier = "EditProfileCell"
+    
+    weak var delegate: EditProfileCellDelegate?
     
     var viewModel: EditProfileViewModel? {
         didSet {
@@ -22,6 +28,7 @@ class EditProfileCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUI()
+        setNotifObserver()
     }
     
     required init?(coder: NSCoder) {
@@ -31,10 +38,14 @@ class EditProfileCell: UITableViewCell {
     //MARK: Selectors
     
     @objc private func handleUpdateUserInfo() {
-        
+        delegate?.updateUserInfo(self)
     }
     
     //MARK: Helpers
+    
+    func setNotifObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUpdateUserInfo), name: UITextView.textDidEndEditingNotification, object: nil)
+    }
     
     private func config() {
         guard let viewModel else { return }
@@ -76,7 +87,7 @@ class EditProfileCell: UITableViewCell {
         return label
     }()
     
-    private lazy var infoTextField: UITextField = {
+    lazy var infoTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .none
         textField.font = .systemFont(ofSize: 14)
@@ -86,7 +97,7 @@ class EditProfileCell: UITableViewCell {
         return textField
     }()
     
-    private lazy var bioTextView: InputTextView = {
+    lazy var bioTextView: InputTextView = {
         let textView = InputTextView()
         textView.font = .systemFont(ofSize: 14)
         textView.textColor = ThemeColor.twitterBlue

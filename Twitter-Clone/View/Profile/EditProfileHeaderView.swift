@@ -53,7 +53,7 @@ class EditProfileHeaderView: UIView {
         }
     }
     
-    private lazy var profileImageView: UIImageView = {
+    lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.sd_setImage(with: user.profileImageUrl)
         imageView.clipsToBounds = true
