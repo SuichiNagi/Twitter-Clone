@@ -47,6 +47,10 @@ struct ProfileHeaderViewModel {
         return "Loading"
     }
     
+    var bioString: String? {
+        return user.bio != nil ? user.bio : ""
+    }
+    
     var usernameString: String? {
         return "@\(user.username)"
     }

@@ -11,7 +11,12 @@ class TweetController: UICollectionViewController {
     
     //MARK: Properties
     
-    var viewModel: TweetViewModel
+    var viewModel: TweetViewModel {
+        didSet {
+            let sectionIndex = 0
+            collectionView.reloadSections(IndexSet(integer: sectionIndex))
+        }
+    }
     private var replies = [TweetModel]() {
         didSet { collectionView.reloadData() }
     }
@@ -33,6 +38,8 @@ class TweetController: UICollectionViewController {
         super.viewDidLoad()
         
         setUI()
+        checkIfUserLikedTweet()
+        checkHowManyLikesTweetHas()
         fetchReplies()
     }
     
@@ -47,6 +54,20 @@ class TweetController: UICollectionViewController {
         TweetService.shared.fetchReplies(forTweet: self.viewModel.tweet) { [weak self] replies in
             guard let self else { return }
             self.replies = replies
+        }
+    }
+    
+    func checkIfUserLikedTweet() {
+        TweetService.shared.checkIfUserLikedTweet(viewModel.tweet) { [weak self] didLike in
+            guard let self else { return }
+            self.viewModel.tweet.didLike = didLike
+        }
+    }
+    
+    func checkHowManyLikesTweetHas() {
+        TweetService.shared.checkHowManyLikesTweetHas(viewModel.tweet) { [weak self] count in
+            guard let self else { return }
+            self.viewModel.tweet.likes = count
         }
     }
     
