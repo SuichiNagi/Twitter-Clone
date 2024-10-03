@@ -23,6 +23,11 @@ class UploadTweetController: UIViewController {
         configMentionHandler()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
     init(user: UserModel, config: UploadTweetConfiguration) {
         self.userModel = user
         self.config = config
@@ -51,10 +56,34 @@ class UploadTweetController: UIViewController {
             }
             
             if case .reply(let tweet) = self.config {
-                NotificationService.shared.uploadNotification(type: .reply, tweet: tweet)
+                NotificationService.shared.uploadNotification(toUser: tweet.user,
+                                                              type: .reply,
+                                                              tweetID: tweet.tweetID)
+                
+                uploadMentionNotification(forCaption: caption, tweetID: tweet.tweetID)
             }
             
             self.dismiss(animated: true)
+        }
+    }
+    
+    //MARK: API
+    
+    fileprivate func uploadMentionNotification(forCaption caption: String, tweetID: String?) {
+        guard caption.contains("@") else { return }
+        let words = caption.components(separatedBy: .whitespacesAndNewlines)
+        
+        words.forEach { word in
+            guard word.hasPrefix("@") else { return }
+            
+            var username = word.trimmingCharacters(in: .symbols)
+            username = username.trimmingCharacters(in: .punctuationCharacters)
+            
+            UserService.shared.fetchUser(withUsername: username) { mentionedUser in
+                NotificationService.shared.uploadNotification(toUser: mentionedUser,
+                                                              type: .mention,
+                                                              tweetID: tweetID)
+            }
         }
     }
     
@@ -62,7 +91,11 @@ class UploadTweetController: UIViewController {
     
     private func configMentionHandler() {
         replyLabel.handleMentionTap { mention in
-            print(mention)
+            UserService.shared.fetchUser(withUsername: mention) { [weak self] user in
+                guard let self else { return }
+                let controller = ProfileController(user: user)
+                self.navigationController?.pushViewController(controller, animated: true)
+            }
         }
     }
     
