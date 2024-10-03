@@ -33,8 +33,15 @@ class FeedController: UICollectionViewController {
     
     //MARK: Selectors
     
-    @objc func handleRefresh() {
+    @objc private func handleRefresh() {
         feedControllerVM.fetchTweets()
+    }
+    
+    @objc private func handleProfileImageTap() {
+        guard let user else { return }
+        
+        let controller = ProfileController(user: user)
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     //MARK: Helpers
@@ -60,7 +67,7 @@ class FeedController: UICollectionViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: profileImageView)
     }
     
-    func setUI() {
+    private func setUI() {
         view.backgroundColor = .white
         
         navigationController?.navigationBar.addSubview(underlineView)
@@ -101,6 +108,9 @@ class FeedController: UICollectionViewController {
         let image = UIImageView()
         image.layer.cornerRadius = 32 / 2
         image.layer.masksToBounds = true
+        image.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleProfileImageTap))
+        image.addGestureRecognizer(tap)
         return image
     }()
 }
