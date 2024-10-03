@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import ActiveLabel
 
 protocol TweetCellDelegate: AnyObject {
     func handleProfileImageTapped(_ cell: TweetCell)
     func handleReplyTapped(_ cell: TweetCell)
     func handleLikeTapped(_ cell: TweetCell)
+    func handleFetchUser(withUsername username: String)
 }
 
 class TweetCell: UICollectionViewCell {
@@ -86,7 +88,13 @@ class TweetCell: UICollectionViewCell {
         return itemViews
     }
     
-    func setUI() {
+    private func configMentionHandler() {
+        captionLabel.handleMentionTap { username in
+            self.delegate?.handleFetchUser(withUsername: username)
+        }
+    }
+    
+    private func setUI() {
         [stackView, underLineView, actionStackView].forEach(addSubview(_:))
         
         profileImageView.snp.makeConstraints { make in
@@ -110,13 +118,16 @@ class TweetCell: UICollectionViewCell {
             make.bottom.equalToSuperview().offset(-8)
             make.centerX.equalToSuperview()
         }
+        
+        configMentionHandler()
     }
     
     //MARK: Properties
     
-    private lazy var replyLabel: UILabel = {
-        let label = UILabel()
+    private lazy var replyLabel: ActiveLabel = {
+        let label = ActiveLabel()
         label.textColor = .lightGray
+        label.mentionColor = ThemeColor.twitterBlue
         label.font = .systemFont(ofSize: 12)
         return label
     }()
@@ -159,9 +170,11 @@ class TweetCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var captionLabel: UILabel = {
-        let label = UILabel()
+    private lazy var captionLabel: ActiveLabel = {
+        let label = ActiveLabel()
         label.font = UIFont.systemFont(ofSize: 14)
+        label.mentionColor = ThemeColor.twitterBlue
+        label.hashtagColor = ThemeColor.twitterBlue
         label.numberOfLines = 0
         return label
     }()

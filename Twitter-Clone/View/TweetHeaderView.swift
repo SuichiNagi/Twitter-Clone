@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import ActiveLabel
 
 protocol TweetHeaderViewDelegate: AnyObject {
     func showActionSheet()
+    func handleFetchUser(withUsername username: String)
 }
 
 class TweetHeaderView: UICollectionReusableView {
@@ -61,6 +63,12 @@ class TweetHeaderView: UICollectionReusableView {
     }
     
     //MARK: Helpers
+    
+    private func configMentionHandler() {
+        captionLabel.handleMentionTap { username in
+            self.delegate?.handleFetchUser(withUsername: username)
+        }
+    }
     
     func config() {
         guard let tweet else { return }
@@ -147,6 +155,8 @@ class TweetHeaderView: UICollectionReusableView {
             make.centerX.equalToSuperview()
             make.top.equalTo(dividerView2.snp.top).offset(12)
         }
+        
+        configMentionHandler()
     }
     
     //MARK: Properties
@@ -193,9 +203,11 @@ class TweetHeaderView: UICollectionReusableView {
         return label
     }()
     
-    private lazy var captionLabel: UILabel = {
-        let label = UILabel()
+    private lazy var captionLabel: ActiveLabel = {
+        let label = ActiveLabel()
         label.font = UIFont.systemFont(ofSize: 20)
+        label.mentionColor = ThemeColor.twitterBlue
+        label.hashtagColor = ThemeColor.twitterBlue
         label.numberOfLines = 0
         return label
     }()
@@ -216,10 +228,11 @@ class TweetHeaderView: UICollectionReusableView {
         return button
     }()
     
-    private lazy var replyLabel: UILabel = {
-        let label = UILabel()
+    private lazy var replyLabel: ActiveLabel = {
+        let label = ActiveLabel()
         label.textColor = .lightGray
         label.font = .systemFont(ofSize: 12)
+        label.mentionColor = ThemeColor.twitterBlue
         return label
     }()
     
