@@ -49,6 +49,7 @@
 		5F7A24E92CADAEB400F4FA54 /* EditProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7A24E82CADAEB400F4FA54 /* EditProfileCell.swift */; };
 		5F802E812C927EE000D9347B /* UploadTweetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F802E802C927EE000D9347B /* UploadTweetViewModel.swift */; };
 		5F87C74B2C7DAEBF00896C11 /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F87C74A2C7DAEBF00896C11 /* TweetCell.swift */; };
+		5F913A292CAF30B80009C2B1 /* EditProfileFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F913A282CAF30B80009C2B1 /* EditProfileFooterView.swift */; };
 		5F92219E2C9032D200DE95CA /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F92219D2C9032D200DE95CA /* NSAttributedString+Extension.swift */; };
 		5FA477982C8B062D00A58745 /* FeedControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA477972C8B062D00A58745 /* FeedControllerViewModel.swift */; };
 		5FA4779A2C8B1DAF00A58745 /* ProfileControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA477992C8B1DAF00A58745 /* ProfileControllerViewModel.swift */; };
@@ -133,6 +134,7 @@
 		5F7A24E82CADAEB400F4FA54 /* EditProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileCell.swift; sourceTree = "<group>"; };
 		5F802E802C927EE000D9347B /* UploadTweetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTweetViewModel.swift; sourceTree = "<group>"; };
 		5F87C74A2C7DAEBF00896C11 /* TweetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
+		5F913A282CAF30B80009C2B1 /* EditProfileFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileFooterView.swift; sourceTree = "<group>"; };
 		5F92219D2C9032D200DE95CA /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
 		5FA477972C8B062D00A58745 /* FeedControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedControllerViewModel.swift; sourceTree = "<group>"; };
 		5FA477992C8B1DAF00A58745 /* ProfileControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileControllerViewModel.swift; sourceTree = "<group>"; };
@@ -369,6 +371,7 @@
 				5FACDFE92C805F7200C54365 /* ProfileFilterCell.swift */,
 				5F7A24E42CADA80400F4FA54 /* EditProfileHeaderView.swift */,
 				5F7A24E82CADAEB400F4FA54 /* EditProfileCell.swift */,
+				5F913A282CAF30B80009C2B1 /* EditProfileFooterView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -638,6 +641,7 @@
 				5FC3BBDB2C982C010041BC92 /* ActionSheetCell.swift in Sources */,
 				5F802E812C927EE000D9347B /* UploadTweetViewModel.swift in Sources */,
 				5F631EF12C76123E00CD8872 /* NotificationsController.swift in Sources */,
+				5F913A292CAF30B80009C2B1 /* EditProfileFooterView.swift in Sources */,
 				5F631EF32C76125100CD8872 /* ConversationsController.swift in Sources */,
 				5F58731D2C770057001C0F3D /* IconImage.swift in Sources */,
 				5FA4779A2C8B1DAF00A58745 /* ProfileControllerViewModel.swift in Sources */,

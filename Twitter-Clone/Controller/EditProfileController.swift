@@ -9,6 +9,7 @@ import UIKit
 
 protocol EditProfileControllerDelegate: AnyObject {
     func controller(_ controller: EditProfileController, wantsToUpdate user: UserModel)
+    func handleLogout()
 }
 
 class EditProfileController: UITableViewController {
@@ -112,7 +113,7 @@ class EditProfileController: UITableViewController {
     private func configTableView() {
         tableView.tableHeaderView = headerView
         headerView.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 180)
-        tableView.tableFooterView = UIView()
+        tableView.tableFooterView = footerView
         
         tableView.register(EditProfileCell.self, forCellReuseIdentifier: EditProfileCell.reuseIdentifier)
     }
@@ -128,6 +129,13 @@ class EditProfileController: UITableViewController {
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
         return imagePicker
+    }()
+    
+    private lazy var footerView: EditProfileFooterView = {
+        let footer = EditProfileFooterView()
+        footer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
+        footer.delegate = self
+        return footer
     }()
 }
 
@@ -194,5 +202,22 @@ extension EditProfileController: EditProfileCellDelegate {
         case .bio:
             user.bio = cell.bioTextView.text
         }
+    }
+}
+
+extension EditProfileController: EditProfileFooterViewDelegate {
+    func handleLogoutButtonTapped() {
+        
+        let alert = UIAlertController(title: nil, message: "Are you sure you want to log out?", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { _ in
+            self.dismiss(animated: true) {
+                self.delegate?.handleLogout()
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
     }
 }
